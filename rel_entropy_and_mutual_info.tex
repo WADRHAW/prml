@@ -1,0 +1,115 @@
+\subsubsection{Relative entropy and mutual information}
+\begin{definition}
+\emph{Convex} functions are functions that satisfy the following
+inequality:
+\begin{equation}
+f(\lambda{}a+(1-\lambda)b)\leq{}\lambda{}f(a)+(1-\lambda)f(b)
+\label{eqn:convexity}
+\end{equation}
+where $0\leq{}\lambda{}\leq{}1$.
+\end{definition}
+
+
+A convex function satisfies the \emph{Jensen's inequality}:
+\begin{equation}
+f(\sum_{i=1}^{M}\lambda_{i}x_{i})\leq{}\sum_{i=1}^{M}\lambda_{i}f(x_i)
+\label{eqn:jensen}
+\end{equation}
+where $\lambda_{i}\geq{}0$ and $\sum_{i=1}^{M}\lambda_{i}=1$. We can
+prove the above inequality by induction:
+\begin{proof}
+\begin{equation}
+\sum_{i=1}^{N+1}\lambda_{i}f(x_i)=(1-\lambda_{N+1})\sum_{i=1}^{N}\frac{\lambda_{i}}{1-\lambda_{N+1}}f(x_i)+\lambda_{N+1}f(x_{N+1})
+\label{eqn:tjensen}
+\end{equation}
+$\because$ \eqref{eqn:jensen} is valid for previous $N$ cases
+$\therefore{}$ \eqref{eqn:tjensen}
+$\geq{}(1-\lambda_{N+1})f(\sum_{i=1}^{N}\frac{\lambda_{i}}{1-\lambda_{N+1}}x_{i})+\lambda_{N+1}f(x_{N+1})$\\
+$\because{}\quad{}f(\cdot)$ is a convex function $\therefore{}$ we
+have:
+\begin{equation}
+(1-\lambda_{N+1})f(\sum_{i=1}^{N}\frac{\lambda_{i}}{1-\lambda_{N+1}}x_{i})+\lambda_{N+1}f(x_{N+1})\geq{}f(\sum_{i=1}^{N+1}\lambda_{i}x_{i})
+\label{eqn:t2jensen}
+\end{equation}
+Thus, we derive the $N+1$ case from previous case.
+\end{proof}
+We can interpret $\lambda_{i}$ as the probability over $X=x_{i}$, then
+\eqref{eqn:jensen} can be written as:
+\begin{equation}
+f(E[X])\leq{}E[f(X)]
+\label{eqn:expectationjensen}
+\end{equation}
+which is also valid for continuous case.
+
+
+Suppose a random variable $X$ is transmitted and its distribution
+$p(X)$ is unknown. We use distribution $q(X)$ to approximate it. Thus
+the average \emph{additional} amount of information required to
+specify $X=x$ is:
+\begin{definition}
+\begin{equation}
+\begin{split}
+\text{KL}(p\Vert{}q)&=-\int{}p(X)\ln{}q(X)\text{d}X-(-\int{}p(X)\ln{}p(X)\text{d}X)\\
+=&-\int{}p(X)\ln{}\{\frac{q(X)}{p(X)}\}\text{d}X
+\end{split}
+\label{eqn:kl}
+\end{equation}
+\end{definition}
+Obviously, \emph{Kullback-Leibler divergence} is not symmetric. Since $(-\ln{}x)''=\frac{1}{x^2}>0$, $-\ln{}x$ is a convex function.
+Thus we can apply Jensen inequality to it:
+\begin{equation}
+\int{}-\ln{}\{\frac{q(X)}{p(X)}\}p(X)\text{d}X\geq{}-\ln{}\int{}p(X)\frac{q(X)}{p(X)}\text{d}X=0
+\end{equation}
+Obviously, KL$(p\Vert{}q)=0$ only when $q(X)=p(X)$. Besides, we have:
+\begin{conclusion}
+KL divergence is the \emph{lower bound} for average additional information that
+must be transmitted. We can arrive the bound by choosing an efficient
+coding scheme.
+\end{conclusion}
+
+
+Both data compression and density estimation are aimed at modelling an
+unknown probability distribution. Suppose $q(X)$ is characterized by a
+bunch of parameters $\theta$ and we estimate $\theta$ by minimizing KL
+divergence. However, $p(X)$ is unknown, we only have its samples
+$x_i,i=1,\ldots,N$ and we use this traning set to approximate $p(X)$:
+\begin{equation}
+\text{KL}(p\Vert{}q)\simeq{}\sum_{i=1}^{N}\{-\ln{}q(x_{i}\vert{}\theta)+\ln{}p(x_i)\}
+\label{eqn:klsimeq}
+\end{equation}
+Note that the second term on the right-hand side of
+\eqref{eqn:klsimeq} is indepedent of $\theta$, and the first term is
+the negative log likelihood function for $\theta$. Thus we have:
+\begin{conclusion}
+Minimizing KL divergence $\Leftrightarrow$ Maximizing the likelihood
+function.
+\end{conclusion}
+
+
+Given two random variables $X,Y$, they are independent if
+$\Pr(X,Y)=\Pr(X)\Pr(Y)$. We can measure how independent they are by:
+\begin{definition}
+\begin{equation}
+\begin{split}
+I[X,Y]&\equiv{}\text{KL}(\Pr(X,Y)\Vert{}\Pr(X)\Pr(Y))\\
+&=-\int{}\int{}\Pr(X,Y)\ln{}(\frac{\Pr(X)\Pr(Y)}{\Pr(X,Y)})\text{d}X\text{d}Y
+\end{split}
+\label{eqn:mutualinformation}
+\end{equation}
+\end{definition}
+which is called the \emph{mutual information} between $X$ and $Y$.
+
+
+Mutual information is related to conditional entropy:
+\begin{equation}
+\begin{split}
+I[X,Y]&=-\int{}\int{}\Pr(X,Y)\ln{}(\frac{\Pr(X)\Pr(Y)}{\Pr(X,Y)})\text{d}X\text{d}Y\\
+&=H[X]+H[Y]-(-\int{}\int{}\Pr(X,Y)\ln{}\Pr(X,Y)\text{d}X\text{d}Y)\\
+&=H[X]+H[Y]-H[X,Y]\\
+&=H[X]-H[X\vert{}Y]=H[Y]-H[Y\vert{}X]\quad{}\text{(by
+    \eqref{eqn:condhhh})}
+\end{split}
+\end{equation}
+Thus, the mutual information can also be viewed as the residue in
+the uncertainty about $X$ after being told the value of $Y$ (or vice
+        versa).

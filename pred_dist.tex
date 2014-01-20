@@ -1,0 +1,53 @@
+\subsubsection{Predictive distribution}
+(Preliminary)
+\begin{conclusion}
+\begin{equation}
+(M+\beta\mathbf{v}\mathbf{v}^{\mathrm{T}})^{-1}=M^{-1}-\beta\frac{(M^{-1}\mathbf{v})(\mathbf{v}^{\mathrm{T}}M^{-1})}{1+\beta\mathbf{v}^{\mathrm{T}}M^{-1}\mathbf{v}}
+\label{eqn:appc3110}
+\end{equation}
+\end{conclusion}
+\begin{proof}
+\begin{equation}
+\begin{split}
+(M+\beta\mathbf{v}^{\mathrm{T}}\mathbf{v})(M^{-1}-\beta\frac{(M^{-1}\mathbf{v})(\mathbf{v}^{\mathrm{T}}M^{-1})}{1+\beta\mathbf{v}^{\mathrm{T}}M^{-1}\mathbf{v}})&=I+\beta\mathbf{v}\mathbf{v}^{\mathrm{T}}M^{-1}-\beta\frac{\mathbf{v}\mathbf{v}^{\mathrm{T}}M^{-1}}{1+\beta\mathbf{v}^{\mathrm{T}}M^{-1}\mathbf{v}}-\beta\frac{\beta\mathbf{v}(\mathbf{v}^{\mathrm{T}}M^{-1}\mathbf{v})\mathbf{v}^{\mathrm{T}}M^{-1}}{1+\beta\mathbf{v}^{\mathrm{T}}M^{-1}\mathbf{v}}\\
+&=I+\beta\mathbf{v}\mathbf{v}^{\mathrm{T}}M^{-1}-\beta\frac{(1+\beta\mathbf{v}^{\mathrm{T}}M^{-1}\mathbf{v})\mathbf{v}\mathbf{v}^{\mathrm{T}}M^{-1}}{1+\beta\mathbf{v}^{\mathrm{T}}M^{-1}\mathbf{v}}=I
+\end{split}
+\end{equation}
+\end{proof}
+
+
+(Ex 3.10) We have the posterior of parameter $\mathcal{N}(\mathbf{w}\vert\mathbf{m}_{N},\Lambda_{N}^{-1})$ and 
+the conditional distribution $\Pr(t\vert\mathbf{x},\mathbf{w},\beta)=\mathcal{N}(t\vert\boldsymbol{\phi}(\mathbf{x})^{\mathrm{T}}\mathbf{w},\beta^{-1})$. 
+Because $\Pr(t,\mathbf{w})=\Pr(t\vert\mathbf{w})\Pr(\mathbf{w})$ and both of them are gaussian. 
+Besides, the mean of $\Pr(t\vert\mathbf{w})$ is a linear form $A\mathbf{w}+\mathbf{b}$ of conditioned rv $\mathbf{w}$ where $A=\boldsymbol{\phi}(\mathbf{x})^{\mathrm{T}}$ and $\mathbf{b}=\mathbf{0}$. 
+Thus, according to \eqref{eqn:gaussianxyjoint}, we have:
+\begin{equation}
+\Pr(\mathbf{w},t)=\mathcal{N}(\begin{bmatrix}\mathbf{w}\\t\\\end{bmatrix}\vert\begin{bmatrix}\mathbf{m}_{N}\\\boldsymbol{\phi}(\mathbf{x})^{\mathrm{T}}\mathbf{m}_{N}\\\end{bmatrix},\begin{bmatrix}\Lambda_{N}^{-1}&\Lambda_{N}^{-1}\boldsymbol{\phi}(\mathbf{x})\\\boldsymbol{\phi}(\mathbf{x})^{\mathrm{T}}\Lambda_{N}^{-1}&\beta^{-1}+\boldsymbol{\phi}(\mathbf{x})^{\mathrm{T}}\Lambda_{N}^{-1}\boldsymbol{\phi}(\mathbf{x})\end{bmatrix})
+\end{equation}
+This is also a gaussian. Hence, according to \eqref{eqn:marggaussian}, we have:
+\begin{equation}
+\begin{split}
+\Pr(t\vert\mathbf{x},\mathbf{t},\alpha,\beta)&=\int\Pr(t,\mathbf{w}\vert\mathbf{x},\mathbf{t},\alpha,\beta)\text{d}\mathbf{w}\\
+&=\mathcal{N}(t\vert{}\boldsymbol{\phi}(\mathbf{x})^{\mathrm{T}}\mathbf{m}_{N},\beta^{-1}+\boldsymbol{\phi}(\mathbf{x})^{\mathrm{T}}\Lambda_{N}^{-1}\boldsymbol{\phi}(\mathbf{x}))
+\end{split}
+\end{equation}
+
+
+(Ex 3.11) As the number of training examples increases, the covariance of $\Pr(t\vert\mathbf{x},\mathbf{t},\alpha,\beta)$ decreases. 
+Suppose $\sigma_{N}^{2}=\beta^{-1}+\boldsymbol{\phi}(\mathbf{x})^{\mathrm{T}}\Lambda_{N}^{-1}\boldsymbol{\phi}(\mathbf{x})$, the second term of $\sigma_{N+1}^{2}$ will be $\boldsymbol{\phi}(\mathbf{x})^{\mathrm{T}}\Lambda_{N+1}^{-1}\boldsymbol{\phi}(\mathbf{x})$. 
+According to \eqref{eqn:onlinelearninggaussianprecision} and \eqref{eqn:appc3110}, we have:
+\begin{equation}
+\begin{split}
+\Lambda_{N+1}^{-1}&=(\Lambda_{N}+\beta\boldsymbol{\phi}(\mathbf{x}_{N+1})\boldsymbol{\phi}(\mathbf{x}_{N+1})^{\mathrm{T}})^{-1}\\
+&=\Lambda_{N}^{-1}-\beta\frac{(\Lambda_{N}^{-1}\boldsymbol{\phi}(\mathbf{x}_{N+1}))(\boldsymbol{\phi}(\mathbf{x}_{N+1})^{\mathrm{T}}\Lambda_{N}^{-1})}{1+\beta\boldsymbol{\phi}(\mathbf{x}_{N+1})^{\mathrm{T}}\Lambda_{N}^{-1}\boldsymbol{\phi}(\mathbf{x}_{N+1})}\\
+&=\Lambda_{N}^{-1}-\beta\frac{(\Lambda_{N}^{-1}\boldsymbol{\phi}(\mathbf{x}_{N+1}))(\boldsymbol{\phi}(\mathbf{x}_{N+1})^{\mathrm{T}}(\Lambda_{N}^{-1})^{\mathrm{T}})}{1+\beta\boldsymbol{\phi}(\mathbf{x}_{N+1})^{\mathrm{T}}\Lambda_{N}^{-1}\boldsymbol{\phi}(\mathbf{x}_{N+1})}\quad{}(\because{}\Lambda,\Lambda^{-1}\text{ are symmetric})
+\end{split}
+\end{equation}
+This results:
+\begin{equation}
+\begin{split}
+\sigma_{N}^{2}-\sigma_{N+1}^{2}&=\frac{\beta}{1+\beta\boldsymbol{\phi}(\mathbf{x}_{N+1})^{\mathrm{T}}\Lambda_{N}^{-1}\boldsymbol{\phi}(\mathbf{x}_{N+1})}\boldsymbol{\phi}(\mathbf{x})^{\mathrm{T}}(\Lambda_{N}^{-1}\boldsymbol{\phi}(\mathbf{x}_{N+1}))(\boldsymbol{\phi}(\mathbf{x}_{N+1})^{\mathrm{T}}(\Lambda_{N})^{\mathrm{T}})\boldsymbol{\phi}(\mathbf{x})\\
+&=\frac{\beta}{1+\beta\boldsymbol{\phi}(\mathbf{x}_{N+1})^{\mathrm{T}}\Lambda_{N}^{-1}\boldsymbol{\phi}(\mathbf{x}_{N+1})}(\boldsymbol{\phi}(\mathbf{x}_{N+1})^{\mathrm{T}}(\Lambda_{N})^{\mathrm{T}}\boldsymbol{\phi}(\mathbf{x}))^{\mathrm{T}}(\boldsymbol{\phi}(\mathbf{x}_{N+1})^{\mathrm{T}}(\Lambda_{N})^{\mathrm{T}}\boldsymbol{\phi}(\mathbf{x}))\\
+&\geq0\quad{}(\because\beta>0,\Lambda_{N}^{-1}\text{ is positive definite and }\forall\mathbf{x},\mathbf{x}\cdot\mathbf{x}\geq0)
+\end{split}
+\end{equation}

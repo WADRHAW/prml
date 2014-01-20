@@ -1,0 +1,370 @@
+\subsection{The Gaussian Distribution}
+Preliminaries:
+\begin{conclusion}
+For quadratic form $\mathbf{x}^{\mathrm{T}}A\mathbf{x}$, matrix $A$ can be taken to be symmetric without loss of generality.
+\end{conclusion}
+\begin{proof}
+$\because\mathbf{x}^{\mathrm{T}}A\mathbf{x}=\sum_{i=1}^{D}\sum_{j=1}^{D}x_{i}x_{j}A_{ij}\quad\therefore\forall\text{ subscript pair }(i,j)\text{ its contribution
+is }x_{i}x_{j}(A_{ij}+A_{ji})$\\
+Thus, for any asymmetric matrix $B$, it is equivalent to $A$ where
+$A_{ij}=A_{ji}=\frac{B_{ij}+B_{ji}}{2}$
+\end{proof}
+
+
+\begin{conclusion}
+Matrix $A$ is symmetric $\Leftrightarrow$
+$A\mathbf{x}\cdot\mathbf{y}=\mathbf{x}\cdot{}A\mathbf{y}$.
+\end{conclusion}
+\begin{proof}
+($\Rightarrow$)
+    $\because{}A\mathbf{x}\cdot{}\mathbf{y}=(A\mathbf{x})^{\mathrm{T}}\mathbf{y}=\mathbf{x}^{\mathrm{T}}A\mathbf{y}=\mathbf{x}\cdot{}A\mathbf{y}$\\
+($\Leftarrow$) $A\mathbf{e}_{i}\cdot{}\mathbf{e}_{j}=A_{ji}=\mathbf{e}_{i}\cdot{}A\mathbf{e}_{j}=A_{ij}$\\
+$\because{}\forall{}(i,j):A_{ij}=A_{ji}\quad{}\therefore{}A=A^{\mathrm{T}}$
+\end{proof}
+
+
+\begin{conclusion}
+Real symmetric matrix $A_{n\times{}n}$ has $n$ real eigenvalues (counting
+        multiplicities).
+\end{conclusion}
+\begin{proof}
+Suppose $A\mathbf{x}=\lambda{}\mathbf{x}$ where
+$\mathbf{x}\in{}\mathbb{C}^{n}$. Let
+$q=\bar{\mathbf{x}}^{\mathrm{T}}A\mathbf{x}$\\
+$\because\bar{q}=\mathbf{x}^{\mathrm{T}}A\bar{\mathbf{x}}=\bar{q}^{\mathrm{T}}=\bar{\mathbf{x}}^{\mathrm{T}}A\mathbf{x}=q\quad{}\therefore{}q$
+is actually real.\\
+$\because{}q=\bar{\mathbf{x}}^{\mathrm{T}}A\mathbf{x}=\bar{\mathbf{x}}^{\mathrm{T}}\lambda{}\mathbf{x}=\lambda{}\Vert{}\mathbf{x}\Vert{}^{2}\quad{}\therefore{}\lambda{}$
+is also real.
+\end{proof}
+
+
+\begin{conclusion}
+Symmetric matrix $A_{n\times{}n}$ has $n$ eigenvectors forming an orthonormal set.
+\end{conclusion}
+\begin{proof}
+(\emph{Assumption}) for $i=1,\ldots,n-1\quad{}(n>1)$, symmetric matrix $A_{i\times{}i}$
+has $i$ orthonormal eigenvectors and $A_{n\times{}n}$ is symmetric but
+doesn't have $n$ orthonormal eigenvectors.
+
+Pick $\lambda_1$, one of $A_{n\times{}n}$'s $n$ eigenvalues and pick a
+corresponding unit eigenvector $\mathbf{u}_1$ (i.e.,
+        $A\mathbf{u}_{1}=\lambda_{1}\mathbf{u}_{1}$). Let
+$W=\text{Nul }\mathbf{u}_{1}^{\mathrm{T}}$ be the
+null space of $\mathbf{u}_1$. Obviously, it is a $n-1$ dimensional
+subspace of $\mathbb{R}^{n}$. Then we could choose the basis for $W$
+consisting of $n-1$ orthonormal vectors
+$\mathbb{B}=\{\mathbf{u}_{2}\ldots,\mathbf{u}_{n}\}$ and let
+$P_{\mathbb{B}}=[\mathbf{u}_{2},\ldots,\mathbf{u}_{n}]$. Although
+$P_{\mathbb{B}}$ is not square, its rank is $n-1$ and thus
+gives an one-to-one and onto mapping from $\mathbb{R}^{n-1}$ to $W$ 
+which implies the existence of its \emph{left inverse} $P_{\mathbb{B}}^{-1}$.
+$$
+\begin{array}{ccc}
+W=\text{Nul }\mathbf{u_1}^{\mathrm{\textnormal{T}}} & &\Re^{n-1}\\
+\mathbf{w} & \autorightleftharpoons{$P_{\mathcal{B}}^{-1}$}{$P_{\mathcal{B}}$}
+&[\mathbf{w}]_{\mathcal{B}}\\
+\end{array}
+$$
+
+
+Then we prove that multiplication by $A$ defines a linear
+transformation $T:W\rightarrow{}W$:\\
+$\because{}A$ is
+symmetric.$\quad{}\therefore{}\forall{}\mathbf{w}\in{}W:\mathbf{u}_{1}\cdot{}A\mathbf{w}=A\mathbf{u}_{1}\cdot{}\mathbf{w}=\lambda_{1}\mathbf{u}_{1}\cdot{}\mathbf{w}=0$\\
+Note that the codomain of mapping $T$ is $W$ but the range may not.
+$$
+\begin{array}{ccc}
+W=\{\mathbf{w}\in\Re^{n}\vert\mathbf{u_1}^{\mathrm{\textnormal{T}}}\mathbf{w}=0\}
+& \autorightarrow{$T:A$}{} & V=\{A\mathbf{w}\vert\mathbf{w}\in
+W\}\subseteq W\\
+& &\\
+\downarrow\quad P_{\mathcal{B}}^{-1} & & \downarrow\quad P_{\mathcal{B}}^{-1}\\
+& &\\
+\Re^{n-1}=\{[\mathbf{w}]_{\mathcal{B}}\vert\mathbf{w}\in W\} &
+\autorightarrow{$T^{'}:M$}{} &
+M[\mathbf{w}]_{\mathcal{B}}=[A\mathbf{w}]_{\mathcal{B}}\in\Re^{n-1}\\
+%\Re^{n-1}=\{[A\mathbf{w}]_{\mathcal{B}}\vert A\mathbf{w}\in V\}\\
+\end{array}
+$$
+
+
+Now our task is to prove the existence of matrix $M$ in the above
+relationships:\\
+Suppose $\mathbf{w}=r_{2}\mathbf{u}_{2}+\ldots+r_{n}\mathbf{u}_{n}$
+and since $T$ is a linear transformation which preserves addition and
+scalar multiplication, we have:
+\begin{equation}
+T(\mathbf{w})=r_{2}T(\mathbf{u}_2)+\ldots+r_{n}T(\mathbf{u}_{n})
+\label{eqn:lineart}
+\end{equation}
+Rewrite \eqref{eqn:lineart} in basis $\mathbb{B}$ we have:
+\begin{equation}
+[T(\mathbf{w})]_{\mathbb{B}}=r_{2}[T(\mathbf{u}_2)]_{\mathbb{B}}+\ldots+r_{n}[T(\mathbf{u}_{n})]_{\mathbb{B}}
+\end{equation}
+Note that
+$[\mathbf{w}]_{\mathbb{B}}=[r_{2}\quad{}\cdots{}\quad{}r_{n}]^{\mathrm{T}}$
+and thus:
+\begin{equation}
+[T(\mathbf{w})]_{\mathbb{B}}=M[\mathbf{w}]_{\mathbb{B}}
+\label{eqn:tandm}
+\end{equation}
+where
+$M=[[T(\mathbf{u}_2)]_{\mathbb{B}}\quad{}\cdots{}\quad{}[T(\mathbf{u}_{n})]_{\mathbb{B}}]$
+
+
+$M$ is related to $A$ in terms of eigenvalues and eigenvectors:\\
+Suppose
+$M[\mathbf{x}]_{\mathbb{B}}=\lambda{}[\mathbf{x}]_{\mathbb{B}}$,
+    according to \eqref{eqn:tandm},
+    $[A\mathbf{x}]_{\mathbb{B}}=\lambda{}[\mathbf{x}]_{\mathbb{B}}$.
+    $\because{}[\cdot]_{\mathbb{B}}$ is actually multiplication by
+    $P_{\mathbb{B}}^{-1}:W\rightarrow{}\mathbb{R}^{n-1}$ which is
+    a linear transformation with one-to-one and onto properties.
+    $\therefore{}\mathbf{x}$ and $[\mathbf{x}]_{\mathbb{B}}$ possess
+    uniquely correspondence and $\mathbf{x}$ is eigenvector of $A$.
+    Besides, since we choose the inverse mapping $P_{\mathbb{B}}$ to
+    be constructed by basis of $W$, $\mathbf{x}\in{}W$.
+
+
+If there is an orthonormal basis of $\mathbb{R}^{n-1}$ consisting of
+$n-1$ eigenvectors of
+$M:[\mathbf{x}_2]_{\mathbb{B}},\ldots,[\mathbf{x}_{n}]_{\mathbb{B}}$,
+    then $\mathbf{x}_{2},\ldots,\mathbf{x}_{n}$ are eigenvectors of
+    $A$.
+    $\because{}\forall{}i=2,\ldots,n:\mathbf{x}_{i}\in{}W\quad{}\therefore{}\mathbf{u}_{1}\cdot{}\mathbf{x}_{i}=0$.
+    Now the remaining task is to prove
+    $\mathbf{x}_{2},\ldots,\mathbf{x}_{n}$ are orthonormal. Remember that
+    $[\mathbf{x}_{2}]_{\mathbb{B}},\ldots,[\mathbf{x}_{n}]_{\mathbb{B}}$
+    are orthonormal so that if multiplication by $P_{\mathbb{B}}$
+    preserves dot products (in turn length), then their
+    correspondences are also orthonormal. So the next steps are:
+\begin{itemize}
+\item multiplication by $P_{\mathbb{B}}$ preserves dot products.
+\item $M$ has $n-1$ orthonormal eigenvectors.
+\end{itemize}
+
+
+Preserving dot products means
+$\forall{}\mathbf{x},\mathbf{y}\in{}\mathbb{R}^{n-1}:\mathbf{x}\cdot{}\mathbf{y}=(P_{\mathbb{B}}\mathbf{x})\cdot{}(P_{\mathbb{B}}\mathbf{y})$.
+It is straightforward by noticing that
+$P_{\mathbb{B}}^{\mathrm{T}}P_{\mathbb{B}}=I_{(n-1)\times{}(n-1)}$.
+Besides, equality is symmetric and we can say $[\cdot]_{\mathbb{B}}$
+preserves dot products (i.e., both $P_{\mathbb{B}}$ and $P_{\mathbb{B}}^{-1}$).
+
+
+To show that $M$ has $n-1$ orthonormal eigenvectors seems difficult,
+   however, note that by induction, a symmetric matrix
+   $M_{(n-1)\times{}(n-1)}$ has $n-1$ orthonormal eigenvectors. Thus,
+   we try to prove $M$ is symmetric.\\
+$\because{}A$ is symmetric.
+$\therefore{}A\mathbf{x}\cdot{}\mathbf{y}=\mathbf{x}\cdot{}A\mathbf{y}$ 
+$\because{}[]_{\mathbb{B}}$ is an isomorphism and preserves dot
+products. $\therefore{}$ according to \eqref{eqn:tandm},
+    $M[\mathbf{x}]_{\mathbb{B}}\cdot{}[\mathbf{y}]_{\mathbb{B}}=[\mathbf{x}]_{\mathbb{B}}\cdot{}M[\mathbf{y}]_{\mathbb{B}}$
+    which implies that $M$ is symmetric.
+
+
+Up to now, we showed that $A$ has $n$ orthonormal eigenvectors
+$\{\mathbf{u}_{1},\mathbf{x}_{2},\ldots,\mathbf{x}_{n}\}$ which
+contradicts our initial assumption. Thus, there doesn't exist such a
+$n$ and $\forall{}n:$ symmetric matrix $A_{n\times{}n}$ has $n$ orthonormal eigenvectors.
+\end{proof}
+
+
+\begin{conclusion}
+Symmetric matrix $A$ is orthonormally diagonalizable, i.e.,
+          $A=U\Lambda{}U^{\mathrm{T}}$ where $U$ is orthogonal
+          (i.e., columns are unit orthogonal vectors and rows are unit
+           orthogonal vectors) and $\Lambda$ is diagonal matrix.
+\end{conclusion}
+\begin{proof}
+We have proved that symmetric matrix $A_{n\times{}n}$ has $n$
+orthonormal eigenvectors
+$\{\mathbf{u}_{1},\ldots,\mathbf{u}_{n}\}\quad{}(A\mathbf{u}_{i}=\lambda_{i}\mathbf{u}_{i})$.
+Let $U=[\mathbf{u}_{1}\quad{}\cdots{}\quad{}\mathbf{u}_{n}]$ and
+$\Lambda{}=\begin{bmatrix}\lambda_1& & \\ &\ddots&\\ &
+&\lambda_n\\\end{bmatrix}$, we show that $A=U\Lambda{}U^{\mathrm{T}}$:
+$\because{}U$ consists of unit orthonormal columns. $\therefore{}$ right multiplied by
+$U,AU=[\lambda_{1}\mathbf{u}_{1}\quad{}\cdots{}\lambda_{n}\mathbf{u}_{n}]$
+and $U\Lambda{}U^{\mathrm{T}}U=U\Lambda{}=[\lambda_{1}\mathbf{u}_{1}\quad{}\cdots{}\lambda_{n}\mathbf{u}_{n}]$
+\end{proof}
+
+
+The multivariate Gaussian distribution takes the form:
+\begin{definition}
+\begin{equation}
+\mathcal{N}(\mathbf{x}\vert\boldsymbol{\mu{}},\Sigma)=\frac{1}{(2\pi)^{\frac{D}{2}}}\frac{1}{\vert\Sigma\vert^{\frac{1}{2}}}\exp{}\{-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu})^{\mathrm{T}}\Sigma^{-1}(\mathbf{x}-\boldsymbol{\mu})\}
+\label{eqn:defgaussian}
+\end{equation}
+\end{definition}
+where $\boldsymbol{\mu{}}$ is the mean vector, $\Sigma$ is a $D\times{}D$
+covariance matrix with its determinant $\vert{}\Sigma\vert$.
+
+
+The functional dependence of the Gaussian on $\mathbf{x}$ is through
+the quadratic form:
+\begin{equation}
+\Delta^2=(\mathbf{x}-\boldsymbol{\mu})^{\mathrm{T}}\Sigma^{-1}(\mathbf{x}-\boldsymbol{\mu})
+\label{eqn:mahalanobis}
+\end{equation}
+The quantity $\Delta$ is called the \emph{Mahalanobis distance} from
+$\boldsymbol{\mu}$ to $\mathbf{x}$.
+
+
+(Based on above propositions) We can choose $\Sigma^{-1}$ to be
+symmetric without loss of generality. Actually, we firstly choose the
+covariance matrix $\Sigma$ to be symmetric, then $\Sigma$ is
+orthogonal diagonalizable:
+\begin{equation}
+\begin{split}
+\Sigma{}&=U\Lambda{}U^{\mathrm{T}}\\
+&=\begin{bmatrix}\mathbf{u}_{1}&\cdots{}&\mathbf{u}_{D}\\\end{bmatrix}\begin{bmatrix}\lambda_1&
+& \\ &\ddots&\\ &
+&\lambda_{D}\\\end{bmatrix}\begin{bmatrix}\mathbf{u}_{1}^{\mathrm{T}}\\\vdots{}\\\mathbf{u}_{D}^{\mathrm{T}}\\\end{bmatrix}\\
+&=\begin{bmatrix}\lambda_{1}\mathbf{u}_{1}&\cdots{}&\lambda_{D}\mathbf{u}_{D}\\\end{bmatrix}\begin{bmatrix}\mathbf{u}_{1}^{\mathrm{T}}\\\vdots{}\\\mathbf{u}_{D}^{\mathrm{T}}\\\end{bmatrix}\\
+&=\sum_{i=1}^{D}\lambda_{i}\mathbf{u}_{i}\mathbf{u}_{i}^{\mathrm{T}}
+\end{split}
+\label{eqn:factcovariance}
+\end{equation}
+Because $\Lambda$ is diagonal matrix, its inverse is $\Lambda^{-1}=\begin{bmatrix}\frac{1}{\lambda_{1}}& & \\ &\ddots{}& \\
+        & &\frac{1}{\lambda_{D}}\\\end{bmatrix}$. 
+In addition, $U$ is orthogonal ($UU^{\mathrm{T}}=I$). Thus, we have:
+\begin{equation}
+\Sigma^{-1}=\sum_{i=1}^{D}\frac{1}{\lambda_{i}}\mathbf{u}_{i}\mathbf{u}_{i}^{\mathrm{T}}
+\label{eqn:factprecise}
+\end{equation}
+This equation also implicitly proves that
+\begin{conclusion}
+Inverse of symmetric matrix is also symmetric.
+\end{conclusion}
+
+
+Substitute \eqref{eqn:factprecise} into \eqref{eqn:mahalanobis}, the
+quadratic form becomes:
+\begin{equation}
+\Delta^{2}=\sum_{i=1}^{D}\frac{y_{i}^2}{\lambda_{i}}
+\end{equation}
+where
+$y_{i}=\mathbf{u}_{i}^{\mathrm{T}}(\mathbf{x}-\boldsymbol{\mu})$. We
+can interpret $\{y_{i}\}$ as a new coordinate system by projecting
+$(\mathbf{x}-\boldsymbol{\mu})$ to $\{\mathbf{u}_{i}\}$. The
+functional dependence of
+$\mathbf{y}=\begin{bmatrix}y_{1}&\cdot{}&y_{D}\\\end{bmatrix}$ on $\mathbf{x}$ is captured by
+the following equation:
+\begin{equation}
+\mathbf{y}=U^{\mathrm{T}}(\mathbf{x}-\boldsymbol{\mu})
+\label{eqn:replacevariable}    
+\end{equation}
+
+
+To be properly normalized, $\Sigma$ should be \emph{positive
+    definite}. Otherwise, see ``Chap12'':
+\putansline{6}{4}
+
+
+Integral by substitution ($\mathbf{x}$ replaced by $\mathbf{y}$)
+    requires calculating \emph{Jacobi determinant} where
+    $J_{ij}=\frac{\partial{}x_{i}}{\partial{}y_{j}}=$. From
+    \eqref{eqn:replacevariable} we know that
+    $\mathbf{x}=U\mathbf{y}+\boldsymbol{\mu}$ and thus
+    $J_{ij}=\frac{\partial{}x_{i}}{\partial{}y_{j}}=U_{ji}^{\mathrm{T}}$.
+    Obviously, this implies that $J=U$. Then we have:
+\begin{equation}
+\begin{split}
+\vert{}J\vert{}^{2}&=\vert{}U\vert{}^{2}\\
+&=\vert{}U^{\mathrm{T}}\vert{}\vert{}U\vert{}\quad{}(\because{}\vert{}A\vert{}=\vert{}A^{\mathrm{T}}\vert{})\\
+&=\vert{}U^{\mathrm{T}}U\vert{}\quad{}(\because{}\vert{}A\vert{}\vert{}B\vert{}=\vert{}AB\vert{})\\
+&=\vert{}I\vert{}=1
+\end{split}
+\end{equation}
+Use these properties of determinant in above derivation, we also have:
+\begin{equation}
+\begin{split}
+\vert{}\Sigma\vert{}&=\vert{}U\Lambda{}U^{\mathrm{T}}\vert{}\\
+&=\vert{}U\vert{}\vert{}\Lambda\vert{}\vert{}U^{\mathrm{T}}\vert{}\\
+&=\vert{}U^{\mathrm{T}}U\vert{}\vert{}\Lambda\vert{}\\
+&=\prod_{i=1}^{D}\lambda_{i}
+\end{split}
+\label{eqn:detofsymmetric}
+\end{equation}
+Up to now, we know the substitution results:
+\begin{equation}
+\begin{split}
+\Pr(\mathbf{y})&=\Pr(\mathbf{x})\vert{}J\vert{}\\
+&=\frac{1}{(2\pi)^{\frac{D}{2}}}\frac{1}{\prod_{i=1}^{D}\lambda_{i}^{\frac{1}{2}}}\exp{}\{-\frac{1}{2}\sum_{i=1}^{D}\frac{y_{i}^2}{\lambda_i}\}\\
+&=\prod_{i=1}^{D}\frac{1}{(2\pi\lambda_i)^{\frac{1}{2}}}\exp{}\{-\frac{y_{i}^2}{2\lambda_i}\}
+\end{split}
+\label{eqn:subgaussian}
+\end{equation}
+From the perspective of $\mathbf{y}$ coordinate system, it is
+straightforward to show that:
+\begin{equation}
+\int{}\Pr(\mathbf{y})\text{d}\mathbf{y}=\prod_{i=1}^{D}\int_{-\infty}^{\infty}\frac{1}{(2\pi\lambda_{i})^{\frac{1}{2}}}\exp{}\{-\frac{y_{i}^2}{2\lambda_{i}}\}\text{d}y_{i}=1
+\end{equation}
+
+
+We now check the moment and second moment of Gaussian. By substitution
+$\mathbf{z}=\mathbf{x}-\boldsymbol{\mu}$ we have
+$\mathbb{E}[\mathbf{x}]=\frac{1}{(2\pi)^{\frac{D}{2}}}\frac{1}{\vert\Sigma\vert^{\frac{1}{2}}}\int{}\exp{}\{-\frac{1}{2}\mathbf{z}^{\mathrm{T}}\Sigma^{-1}\mathbf{z}\}(\mathbf{z}+\boldsymbol{\mu})\text{d}\mathbf{z}$.
+Note that $\exp(\cdot)$ is an even function and the integral region is
+the whole $\mathbb{R}^{D}$. Thus the term of exponential function
+multiplied by $z$ will vanish and
+$\mathbb{E}[\mathbf{x}]=\boldsymbol{\mu}$.
+
+
+Univariate case we consider $\mathbb{E}[x^2]$, while in the multivariate
+case ($D$ dimensional) we have $D^2$ pairs $x_{i}x_{j}$. Thus we
+consider:
+\begin{equation}
+\begin{split}
+\mathbb{E}[\mathbf{x}\mathbf{x}^{\mathrm{T}}]&=\frac{1}{(2\pi)^{\frac{D}{2}}}\frac{1}{\vert\Sigma\vert^{\frac{1}{2}}}\int{}\exp{}\{-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu})^{\mathrm{T}}\Sigma^{-1}(\mathbf{x}-\boldsymbol{\mu})\}\mathbf{x}\mathbf{x}^{\mathrm{T}}\text{d}\mathbf{x}\\
+&=\frac{1}{(2\pi)^{\frac{D}{2}}}\frac{1}{\vert\Sigma\vert^{\frac{1}{2}}}\int{}\exp{}\{-\frac{1}{2}\mathbf{z}^{\mathrm{T}}\Sigma^{-1}\mathbf{z}\}(\mathbf{z}+\boldsymbol{\mu})(\mathbf{z}+\boldsymbol{\mu})^{\mathrm{T}}\text{d}\mathbf{z}
+\end{split}        
+\label{eqn:secondmomentgaussian}
+\end{equation}
+Consider
+$(\mathbf{z}+\boldsymbol{\mu})(\mathbf{z}+\boldsymbol{\mu})^{\mathrm{T}}$
+we firstly find that $\mathbf{z}\boldsymbol{\mu}^{\mathrm{T}}$ and
+$\boldsymbol{\mu}\mathbf{z}^{\mathrm{T}}$ will vanish because of the
+same reason leveraged in computing moment of Gaussian above. Secondly,
+     $\boldsymbol{\mu}\boldsymbol{\mu}^{\mathrm{T}}$ doesn't contain
+     integral variable $\mathbf{z}$ and thus contributes
+     $\boldsymbol{\mu}\boldsymbol{\mu}^{\mathrm{T}}$ to final integral
+     result since $\Pr(\cdot)$ is normalized. Remember that from
+     \eqref{eqn:replacevariable} we have $\mathbf{z}=U\mathbf{y}$ and
+     substitution results:
+\begin{equation}
+\begin{split}
+&\frac{1}{(2\pi)^{\frac{D}{2}}}\frac{1}{\vert{}\Sigma\vert^{\frac{1}{2}}}\int{}\exp{}\{-\frac{1}{2}\mathbf{z}^{\mathrm{T}}\Sigma^{-1}\mathbf{z}\}\mathbf{z}\mathbf{z}^{\mathrm{T}}\text{d}\mathbf{z}\\
+=&\frac{1}{(2\pi)^{\frac{D}{2}}}\frac{1}{\vert{}\Sigma\vert^{\frac{1}{2}}}\int{}\exp{}\{-\sum_{i=1}^{D}\frac{y_{i}^2}{2\lambda_{i}}\}(U\mathbf{y})(U\mathbf{y})^{\mathrm{T}}\text{d}\mathbf{y}\\
+=&\frac{1}{(2\pi)^{\frac{D}{2}}}\frac{1}{\vert{}\Sigma\vert^{\frac{1}{2}}}\int{}\exp{}\{-\sum_{i=1}^{D}\frac{y_{i}^2}{2\lambda_{i}}\}(\sum_{j=1}^{D}y_{j}\mathbf{u}_{j})(\sum_{k=1}^{D}y_{k}\mathbf{u}_{k}^{\mathrm{T}})\text{d}\mathbf{y}\\
+=&\frac{1}{(2\pi)^{\frac{D}{2}}}\frac{1}{\vert{}\Sigma\vert^{\frac{1}{2}}}\sum_{j=1}^{D}\sum_{k=1}^{D}\mathbf{u}_{j}\mathbf{u}_{k}^{\mathrm{T}}\int{}\exp{}\{-\sum_{i=1}^{D}\frac{y_{i}^2}{2\lambda_{i}}\}y_{j}y_{k}\text{d}\mathbf{y}\\
+\end{split}
+\label{eqn:mprocsecmom}
+\end{equation}
+Since $y_{j}y_{k}$ is odd function of $y_{j},y_{k}$ respectively, the
+term with different $j,k$ will vanish. Besides,
+     $\int{}\mathcal{N}(x\vert{}\mu,\sigma)x^{2}\text{d}x=\sigma$.
+     Thus, we can further simplify \eqref{eqn:mprocsecmom} to:
+\begin{equation}
+\frac{1}{(2\pi)^{\frac{D}{2}}}\frac{1}{\vert{}\Sigma\vert^{\frac{1}{2}}}\sum_{j=1}^{D}\mathbf{u}_{j}\mathbf{u}_{j}^{\mathrm{T}}\int{}\exp{}\{-\sum_{i=1}^{D}\frac{y_{i}^2}{2\lambda_{i}}\}y_{j}^{2}\text{d}\mathbf{y}=\sum_{j=1}^{D}\mathbf{u}_{j}\mathbf{u}_{j}^{\mathrm{T}}\lambda_{j}=\Sigma
+\label{eqn:gaussiansecmm}
+\end{equation}
+Based on above analysis and calculation we have:
+\begin{equation}
+\begin{split}
+\text{cov}[\mathbf{x}]&=\mathbb{E}[(\mathbf{x}-\mathbb{E}[\mathbf{x}])(\mathbf{x}-\mathbb{E}[\mathbf{x}])^{\mathrm{T}}]\\
+&=\mathbb{E}[\mathbf{x}\mathbf{x}^{\mathrm{T}}]-\mathbb{E}[\mathbf{x}]\mathbb{E}[\mathbf{x}]^{\mathrm{T}}\\
+&=\Sigma+\boldsymbol{\mu}\boldsymbol{\mu}^{\mathrm{T}}-\boldsymbol{\mu}\boldsymbol{\mu}^{\mathrm{T}}\\
+&=\Sigma
+\end{split}
+\label{eqn:gaussiancov}
+\end{equation}
+Because $\Sigma$ governs the covariance, it is called \emph{covariance
+    matrix} and $\Sigma^{-1}$ is called the \emph{precision matrix}.
+
+\input{cond_gaussian}
+\input{marg_gaussian}
+\input{bayes_gaussian}
+\input{ml_gaussian}
+\input{bayes_infer}

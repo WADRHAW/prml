@@ -1,0 +1,51 @@
+\subsubsection{Bayes' theorem for Gaussian variables}
+Up to now, the whole story is given a quadratic form
+$(\mathbf{x}-\boldsymbol{\mu})^{\mathrm{T}}\Lambda(\mathbf{x}-\boldsymbol{\mu})$,
+    we could partition $\mathbf{x},\boldsymbol{\mu},\Lambda$ with
+    consistent size and transform it into two quadratic forms:
+\begin{equation}
+-\frac{1}{2}\mathbf{x}^{\mathrm{T}}\Lambda\mathbf{x}=-\frac{1}{2}(\mathbf{x}_{b}-\Lambda_{bb}^{-1}\mathbf{m})^{\mathrm{T}}\Lambda_{bb}(\mathbf{x}_{b}-\Lambda_{bb}^{-1}\mathbf{m})-\frac{1}{2}(\mathbf{x}_{a}-\boldsymbol{\mu}_a)^{\mathrm{T}}(\Lambda_{aa}-\Lambda_{ab}\Lambda_{bb}^{-1}\Lambda_{ba})(\mathbf{x}_{a}-\boldsymbol{\mu}_a)
+\label{eqn:quadraticpartition}
+\end{equation}
+where
+$\mathbf{m}=\Lambda_{bb}\boldsymbol{\mu}_{b}-\Lambda_{ba}(\mathbf{x}_{a}-\boldsymbol{\mu}_a)$
+and thus ``$\mu$'' for the first term on the right-hand side of
+\eqref{eqn:quadraticpartition} is
+$\boldsymbol{\mu}_{b}-\Lambda_{bb}^{-1}\Lambda_{ba}(\mathbf{x}_{a}-\boldsymbol{\mu}_a)$
+which is a linear function to $\mathbf{x}_a$.
+
+
+Hence, the inverse operation can be applied to
+$\Pr(\mathbf{x})=\mathcal{N}(\mathbf{x}\vert\boldsymbol{\mu},\Lambda^{-1})$,
+    $\Pr(\mathbf{y}\vert\mathbf{x})=\mathcal{N}(\mathbf{y}\vert{}A\mathbf{x}+\mathbf{b},L^{-1})$
+    resulting their joint Gaussian distribution
+    $\Pr(\mathbf{z})=\Pr(\mathbf{x},\mathbf{y})=\Pr(\mathbf{y}\vert{}\mathbf{x})\Pr(\mathbf{x})$.
+
+
+Suppose the quadratic form is
+$(\mathbf{z}-\mathbb{E}[\mathbf{z}])^{\mathrm{T}}R(\mathbf{z}-\mathbb{E}[\mathbf{z}])$
+and
+$R=\begin{bmatrix}R_{xx}&R_{xy}\\R_{yx}&R_{yy}\\\end{bmatrix},\mathbb{E}[\mathbf{z}]=\begin{bmatrix}\mathbb{E}[\mathbf{z}]_{x}\\\mathbb{E}[\mathbf{z}]_{y}\end{bmatrix}$,
+    then we calculate them according to \eqref{eqn:quadraticpartition}:
+\begin{itemize}
+\item Obviously, $R_{yy}=L$,
+    $\mathbb{E}[\mathbf{z}]_{x}=\boldsymbol{\mu}$.
+\item
+$\because{}A\mathbf{x}+\mathbf{b}=\mathbb{E}[\mathbf{z}]_{y}-R_{yy}^{-1}R_{yx}(\mathbf{x}-\mathbb{E}[\mathbf{z}]_x)\therefore{}A=-R_{yy}^{-1}R_{yx}=-L^{-1}R_{yx}$,
+    i.e., $R_{yx}=-LA$.
+\item Now
+$A\mathbf{x}+\mathbf{b}=\mathbb{E}[\mathbf{z}]_{y}+A(\mathbf{x}-\boldsymbol{\mu})$,
+    thus, $\mathbb{E}[\mathbf{z}]_{y}=A\boldsymbol{\mu}+\mathbf{b}$.
+\item Since $R$ is required to be symmetric,
+    $R_{xy}=R_{yx}^{\mathrm{T}}=-A^{\mathrm{T}}L$.
+\item
+$\because{}R_{xx}-R_{xy}R_{yy}^{-1}R_{yx}=R_{xx}-A^{\mathrm{T}}LA=\Lambda\therefore{}R_{xx}=\Lambda+A^{\mathrm{T}}LA$.
+\end{itemize}
+Use \eqref{eqn:schurcomplement}, we know that:
+\begin{equation}
+\begin{split}
+\Pr(\mathbf{z})&=\mathcal{N}(\mathbf{z}\vert{}\begin{bmatrix}\boldsymbol{\mu}\\A\boldsymbol{\mu}+\mathbf{b}\\\end{bmatrix},\begin{bmatrix}\Lambda+A^{\mathrm{T}}LA&-A^{\mathrm{T}}L\\-LA&L\\\end{bmatrix}^{-1})\\
+&=\mathcal{N}(\mathbf{z}\vert{}\begin{bmatrix}\boldsymbol{\mu}\\A\boldsymbol{\mu}+\mathbf{b}\\\end{bmatrix},\begin{bmatrix}\Lambda^{-1}&\Lambda^{-1}A^{\mathrm{T}}\\A\Lambda^{-1}&L^{-1}+A\Lambda^{-1}A^{\mathrm{T}}\\\end{bmatrix})
+\end{split}    
+\label{eqn:gaussianxyjoint}
+\end{equation}

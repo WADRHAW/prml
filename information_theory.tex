@@ -1,0 +1,149 @@
+\subsection{Information Theory}
+When we observe a specific value of a random variable $X=x$, the
+information gain is:
+\begin{definition}
+\begin{equation}
+h(x)=-\log_{2}\Pr(x)
+\label{eqn:ig}
+\end{equation}
+\end{definition}
+which is a monotonic function of $\Pr(x)$ and reflects the ``degree of
+surprise''. For independent random variables $X,Y$,
+    $\Pr(x,y)=\Pr(x)\Pr(y)$, thus the information gain
+    $h(x,y)=\log_{2}\Pr(x,y)=\log_{2}\Pr(x)+\log_{2}\Pr(y)=h(x)+h(y)$
+    which satisfies our intuition.
+
+
+\emph{Entropy} can be viewed as the average amount of information to transmit
+a random variable. Thus is defined as the expectation of
+\eqref{eqn:ig} with respect to the distribution $\Pr(X)$:
+\begin{definition}
+\begin{equation}
+H[X]=-\sum_{x}\Pr(x)\log_{2}\Pr(x)
+\label{eqn:entropy}
+\end{equation}
+\end{definition}
+A deeper interpretation as a measure of disorder:
+\putansline{6}{1}
+
+
+The more evenly a distribution spreads, the higher its entropy is.
+Besides, the \emph{noiseless coding theorem} states that:
+\begin{conclusion}
+The entropy is a lower bound on the average number of bits needed to transmit
+the state of a random variable. We can arrive the lower bound by
+choosing an efficient coding scheme.
+\end{conclusion}
+The maximum entropy configuration can be found by maximizing the following
+equation which includes the normalization constraint on the
+probability distribution:
+\begin{equation}
+\tilde{H}=-\sum_{i=1}^{M}p_{i}\ln(p_{i})+\lambda(\sum_{i=1}^{M}p_{i}-1)
+\label{eqn:tildeh}
+\end{equation}
+where the $\lambda$ is a Lagrangian multiplier and doesn't need to be 
+determined. To find stationary points, we check its derivatives:
+\begin{gather}
+\frac{\partial{}\tilde{H}}{\partial{}p_{i}}=-(\ln(p_{i})+1)+\lambda=0\text{~for~}i=1,\ldots,M\notag\\
+\sum_{i=1}^{M}p_{i}-1=0\notag
+\end{gather}
+We have stationary $p_{i}=\frac{1}{M},i=1,\ldots,M$ and its second
+derivative is:
+\begin{equation}
+\frac{\partial{}\tilde{H}}{\partial{}p_{i}\partial{}p_{j}}=-I_{ij}\frac{1}{p_i}=-I_{ij}M
+\label{eqn:sd}
+\end{equation}
+Since $M>0$, the second derivative is negative definite (diagonal
+        matrix's eigenvalues are elements on its diagonal), thus the
+stationary point is indeed a maximum.
+
+
+The entropy for continuous variable can't be elegantly defined and we
+use the concept---differential entropy:
+\begin{definition}
+\begin{equation}
+H[X]=-\int{}\Pr(x)\ln{}\Pr(x)\text{d}x
+\label{eqn:diffentropy}
+\end{equation}
+\end{definition}
+
+We find the maximum of $H[x]$ using Lagrange multipliers with 
+normalization constraint of probability distribution and contraints over the first and
+second moments of $\Pr(X)$:
+\begin{gather}
+\lambda_{1}(\int_{-\infty}^{\infty}\Pr(x)\text{d}x-1)\notag\\
+\lambda_{2}(\int_{-\infty}^{\infty}x\Pr(x)\text{d}x-\mu)\notag\\
+\lambda_{3}(\int_{-\infty}^{\infty}(x-\mu)^{2}\Pr(x)\text{d}x-\sigma^{2})\notag
+\end{gather}
+Using the calculus of variations and set the derivative of the
+functional to zero giving us:
+\putansline{6}{2}
+\begin{equation}
+\Pr(X)=\exp{}\{-1+\lambda_{1}+\lambda_{2}X+\lambda_{3}(X-\mu)^2\}
+\label{eqn:cvresult}
+\end{equation}
+back substitution of \eqref{eqn:cvresult} into the three constraint
+equations gives us:
+\putansline{6}{3}
+\begin{equation}
+\Pr(X)=\frac{1}{(2\pi{}\sigma^{2})^{\frac{1}{2}}}\exp{}\{-\frac{(X-\mu)^{2}}{2\sigma^{2}}\}
+\label{eqn:uniguassian}
+\end{equation}
+so we have:
+\begin{conclusion}
+The maximum entropy configuration for continuous random variable is the Guassian.
+\end{conclusion}
+Then we evaluate its differential entropy. $\ln{}\Pr(X)=\frac{-1}{2}\ln{}(2\pi{}\sigma^2)-\frac{(X-\mu)^2}{2\sigma^2}$
+    and
+    $-\int_{-\infty}^{\infty}\Pr(X)\frac{-1}{2}\ln(2\pi{}\sigma^2)\text{d}X=\frac{1}{2}\ln(2\pi\sigma^2)$.
+    So the difficulty is to calculate
+\begin{equation}
+\begin{split}
+&\frac{1}{(2\pi\sigma^2)^{\frac{1}{2}}}\int_{-\infty}^{\infty}\exp{}\{\frac{-(X-\mu)^2}{2\sigma^2}\}\frac{(X-\mu)^2}{2\sigma^2}\text{d}X\\
+=&\frac{(2\sigma^2)^{\frac{1}{2}}}{(2\pi\sigma^2)^{\frac{1}{2}}}\int_{-\infty}^{\infty}\exp{}\{\frac{-(X-\mu)^2}{2\sigma^2}\}\frac{(X-\mu)^2}{2\sigma^2}\text{d}\frac{(X-\mu)}{(2\sigma^2)^{\frac{1}{2}}}
+\end{split}
+\label{eqn:secondterm}
+\end{equation}
+By subsection integral method, we know that:
+\begin{equation}
+\begin{split}
+\int_{-\infty}^{\infty}x^{2}\exp{}(-x^2)\text{d}x=&\int_{-\infty}^{\infty}\frac{\text{d}\exp{}(-x^2)}{\text{d}x}\frac{-x}{2}\text{d}x\\
+=&\exp{}(-x^2)\frac{-x}{2}\vert_{-\infty}^{\infty}-\int_{-\infty}^{\infty}\exp{}(-x^2)\frac{\text{d}\frac{-x}{2}}{\text{d}x}\text{d}x\\
+=&0+\frac{1}{2}\int_{-\infty}^{\infty}\exp{}(-x^2)\text{d}x\\
+=&\frac{\pi^{\frac{1}{2}}}{2}
+\end{split}
+\label{eqn:ssint}
+\end{equation}
+Thus, based on \eqref{eqn:ssint} and \eqref{eqn:secondterm}, we have
+$H[X]=\frac{1}{2}\{1+\ln{}(2\pi\sigma^2)\}$.
+
+
+Suppose we have a joint distribution $\Pr(X,Y)$. If we observe a
+specific value $X=x$, then the additional information needed to
+specify the corresponding value of $Y=y$ is given by
+$-\ln{}\Pr(y\vert{}x)$. Intuitively, $h(x,y)=h(x)+h(y\vert{}x)$, by
+the production rule of probability,
+    $-\ln{}\Pr(x,y)=-\ln{}\{\Pr(x)\Pr(y\vert{}x)\}=-\ln{}\Pr(x)-\ln{}\Pr(y\vert{}x)$,
+    which comfirms that our definition makes sense.
+    
+    
+Then we define the \emph{conditional entropy} of $Y$ given $X$ as the
+average additional information needed to specify $Y$:
+\begin{definition}
+\begin{equation}
+H[Y\vert{}X]=-\int{}\int{}\Pr(X,Y)\ln{}\Pr(Y\vert{}X)\text{d}Y\text{d}X
+\label{eqn:conditionalentropy}
+\end{equation}
+\end{definition}
+Then we confirm that $H[X,Y]=H[Y\vert{}X]+H[X]$:
+\begin{equation}
+\begin{split}
+H[X,Y]=&-\int{}\int{}\Pr(X,Y)\ln{}\Pr(X,Y)\text{d}X\text{d}Y\\
+=&-\int{}\int{}\Pr(X,Y)\ln{}\Pr(Y\vert{}X)+\Pr(X,Y)\ln{}\Pr(X)\text{d}X\text{d}Y\\
+=&H[Y\vert{}X]-\int{}\ln{}\Pr(X)\text{d}X\int{}\Pr(X,Y)\text{d}Y\\
+=&H[Y\vert{}X]-\int{}\Pr(X)\ln{}\Pr(X)\text{d}X\\
+=&H[Y\vert{}X]+H[X]
+\end{split}
+\label{eqn:condhhh}
+\end{equation}
+\input{rel_entropy_and_mutual_info}

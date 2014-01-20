@@ -1,0 +1,34 @@
+\subsubsection{Parameter distribution}
+(Ex 3.7) 
+\begin{itemize}
+\item $\mathbf{w}$ has prior $\Pr(\mathbf{w})=\mathcal{N}(\mathbf{w}\vert{}\mathbf{m}_{0},\Lambda_{0}^{-1})$.
+\item the likelihood is $\Pr(t\vert\mathbf{w})=\mathcal{N}(t\vert{}\mathbf{w}\cdot\boldsymbol{\phi}(\mathbf{x}),\beta^{-1})$ where $\boldsymbol{\phi}(\mathbf{x})=\begin{bmatrix}\phi_{0}(\mathbf{x})\\\vdots\\\phi_{M-1}(\mathbf{x})\\\end{bmatrix}$ and $\beta$ is supposed to be fixed.
+\end{itemize}
+The posterior is functional to $\mathbf{w}$ through $\exp{}\{-\frac{1}{2}(\mathbf{w}-\mathbf{m}_{0})^{\mathrm{T}}\Lambda_{0}(\mathbf{w}-\mathbf{m}_{0})-\frac{\beta}{2}\sum_{i=1}^{N}(\mathbf{w}\cdot\boldsymbol{\phi}(\mathbf{x}_i)-t_i)^2\}$. 
+We solve the mean $\mathbf{m}_N$ and precision matrix $\Lambda_N$ of the posterior Gaussian distribution by completing it:
+\begin{equation}
+\begin{split}
+\sum_{k=1}^{N}(\mathbf{w}\cdot\boldsymbol{\phi}(\mathbf{x}_k))^2&=\sum_{k=1}^{N}(\sum_{i=0}^{M-1}w_{i}\phi_{i}(\mathbf{x}_k))^2\\
+&=\sum_{k=1}^{N}\sum_{i=0}^{M-1}w_{i}\phi_{i}(\mathbf{x}_k)\sum_{j=0}^{M-1}w_{j}\phi_{j}(\mathbf{x}_k)\\
+&=\sum_{i=0}^{M-1}\sum_{j=0}^{M-1}w_{i}w_{j}(\sum_{k}^{N}\phi_{i}(\mathbf{x}_k)\phi_{j}(\mathbf{x}_k))\\
+&=\mathbf{w}^{\mathrm{T}}(\boldsymbol{\Phi}^{\mathrm{T}}\boldsymbol{\Phi})\mathbf{w}
+\end{split}
+\end{equation}
+Thus, the quadratic term w.r.t $\mathbf{w}$ is $-\frac{1}{2}\mathbf{w}^{\mathrm{T}}(\Lambda_{0}+\beta\boldsymbol(\Phi)^{\mathrm{T}}\boldsymbol{\Phi})\mathbf{w}$ so that:
+\begin{equation}
+\Lambda_{n}=\Lambda_{0}+\beta\boldsymbol{\Phi}^{\mathrm{T}}\boldsymbol{\Phi}
+\label{eqn:onlinelearninggaussianprecision}
+\end{equation}
+Then consider the linear part:
+\begin{equation}
+\begin{split}
+\mathbf{w}^{\mathrm{T}}\Lambda_{0}\mathbf{m}_{0}+\beta\sum_{i=1}^{N}\mathbf{w}\cdot\boldsymbol{\phi}(\mathbf{x}_i)t_{i}&=\mathbf{w}^{\mathrm{T}}\Lambda_{0}\mathbf{m}_{0}+\beta\sum_{i=1}^{N}\sum_{j=0}^{M-1}w_{j}\phi_{j}(\mathbf{x}_i)t_{i}\\
+&=\mathbf{w}^{\mathrm{T}}\Lambda_{0}\mathbf{m}_{0}+\beta\sum_{j=0}^{M-1}w_{j}\sum_{i=1}^{N}\phi_{j}(\mathbf{x}_i)t_i\\
+&=\mathbf{w}^{\mathrm{T}}\Lambda_{0}\mathbf{m}_{0}+\beta\mathbf{w}^{\mathrm{T}}(\boldsymbol{\Phi}^{\mathrm{T}}\mathbf{t})\\
+&=\mathbf{w}^{\mathrm{T}}(\Lambda_{0}\mathbf{m}_{0}+\beta\boldsymbol{\Phi}^{\mathrm{T}}\mathbf{t})
+\end{split}
+\end{equation}
+Thus, according to \eqref{eqn:expandexponent}, we have:
+\begin{equation}
+\mathbf{m}_{N}=\Lambda_{N}^{-1}(\Lambda_{0}\mathbf{m}_{0}+\beta\boldsymbol{\Phi}^{\mathrm{T}}\mathbf{t})\\
+\end{equation}

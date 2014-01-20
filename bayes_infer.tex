@@ -1,0 +1,101 @@
+\subsubsection{Bayesian inference for the Gaussian}
+(Preliminary)
+\begin{definition}
+Gamma distribution is defined as:
+\begin{equation}
+\text{Gam}(x\vert{}a,b)=\frac{1}{\gamma(a)}b^{a}x^{a-1}\exp{}(-bx)
+\end{equation}
+where $a,b>0$.
+\end{definition}
+\begin{conclusion}
+(Ex 2.41) The expectation of gamma distribution is $\mathbb{E}[x]=\frac{a}{b}$.
+\end{conclusion}
+\begin{proof}
+\begin{equation}
+\begin{split}
+\mathbb{E}[x]&=\int_{0}^{\infty}\frac{1}{\gamma(a)}(bx)^{a}\exp{}(-bx)\text{d}x\\
+&=\frac{1}{b\gamma(a)}\int_{0}^{\infty}t^{a}\exp{}(-t)\text{d}t\quad{}(\text{let }t=bx)\\
+&=\frac{\gamma(a+1)}{b\gamma(a)}=\frac{a}{b}
+\end{split}
+\end{equation}
+\end{proof}
+\begin{conclusion}
+(Ex 2.42) The variance of gamma distribution is $\text{var}[x]=\frac{a}{b^2}$.
+\end{conclusion}
+\begin{proof}
+\begin{equation}
+\begin{split}
+\mathbb{E}[x^2]&=\int_{0}^{\infty}\frac{x^2}{\gamma(a)}b^{a}x^{a-1}\exp{}(-bx)\text{d}x\\
+&=\frac{1}{b\gamma(a)}\int_{0}^{\infty}(bx)^{a+1}\exp{}(-bx)\text{d}x\\
+&=\frac{1}{b^2\gamma(a)}\int_{0}^{\infty}t^{a+1}\exp{}(-t)\text{d}t\quad{}(\text{let }t=bx)\\
+&=\frac{\gamma(a+2)}{b^2\gamma(a)}=\frac{a(a+1)}{b^2}
+\end{split}
+\end{equation}
+\begin{equation}
+\text{var}[x]=\mathbb{E}[x^2]-\mathbb{E}[x]^2=\frac{a(a+1)}{b^2}-\frac{a^2}{b^2}=\frac{a}{b^2}
+\end{equation}
+\end{proof}
+\begin{definition}
+Wishart distribution for $\Lambda_{D\times{}D}$ is defined as:
+\begin{equation}
+\mathcal{W}(\Lambda\vert\mathbf{W},v)=B\vert\Lambda\vert^{\frac{v-D-1}{2}}\exp{}(-\frac{1}{2}\text{Tr}(\mathbf{W}^{-1}\Lambda))
+\end{equation}
+\end{definition}
+Suppose the precision matrix $\Lambda$ is known, to 
+calculate its posterior $\Pr(\boldsymbol{\mu}\vert\mathbf{X})\varpropto\Pr(\mathbf{X}\vert\boldsymbol{\mu})\Pr(\boldsymbol{\mu})$, we choose the prior to be also Gaussian $\mathcal{N}(\boldsymbol{\mu}\vert\boldsymbol{\mu}_{0},\Lambda_{0}^{-1})$ so that 
+the terms in exponent becomes $-\frac{1}{2}\{\boldsymbol{\mu}^{\mathrm{T}}\Lambda_{0}\boldsymbol{\mu}+\sum_{i=1}^{N}(\boldsymbol{\mu}-\mathbf{x}_{i})^{\mathrm{T}}\Lambda{}(\boldsymbol{\mu}-\mathbf{x}_{i}\}$.
+We can complete the square according to \eqref{eqn:expandexponent}.  The second order term of $\boldsymbol{\mu}$ is $-\frac{1}{2}\boldsymbol{\mu}^{\mathrm{T}}(\Lambda_{0}+N\Lambda)\boldsymbol{\mu}$. Thus the precision matrix $\Lambda_{N}$ of $\Pr(\boldsymbol{\mu}\vert\mathbf{X})$ is:
+\begin{equation}
+\Lambda_{N}=\Lambda_{0}+N\Lambda
+\end{equation}
+Then we check the first order term of $\boldsymbol{\mu}$ is $\boldsymbol{\mu}^{\mathrm{T}}(\Lambda_{0}\boldsymbol{\mu}_{0}+\Lambda{}\sum_{i=1}^{N}\mathbf{x}_{i})$. 
+The mean $\boldsymbol{\mu}_{N}$ of $\Pr(\boldsymbol{\mu}\vert\mathbf{X})$ is:
+\begin{equation}
+\begin{split}
+\boldsymbol{\mu}_{N}&=(\Lambda_{0}+N\Lambda)^{-1}(\Lambda_{0}\boldsymbol{\mu}_{0}+\Lambda{}\sum_{i=1}^{N}\mathbf{x}_{i})\\
+&=(\Lambda_{0}+N\Lambda)^{-1}(\Lambda_{0}\boldsymbol{\mu}_{0}+N\Lambda{}\boldsymbol{\mu}_{\text{ML}})
+\end{split}
+\end{equation}
+
+
+Suppose the mean $\mu$ is known, to  calculate its posterior $\Pr(\lambda\vert\mathbf{X})\varpropto\Pr(\mathbf{X}\vert\lambda)\Pr(\lambda)$, we firstly check the likelihood function:
+\begin{equation}
+\Pr(\mathbf{X}\vert\lambda)\varpropto\lambda^{\frac{N}{2}}\exp{}\{-\frac{\lambda}{2}\sum_{i=1}^{N}(x_{i}-\mu)^2\}
+\end{equation}
+If we choose the prior to be gamma distribution $\text{Gam}(\lambda\vert{}a_0,b_0)$, then the posterior keeps the same form $\text{Gam}(\lambda\vert{}a_{N},b_{N})$ with the prior:
+\begin{equation}
+\Pr(\lambda\vert\mathbf{X})\varpropto{}\lambda^{a_{0}-1}\lambda^{\frac{N}{2}}\exp{}\{-b_{0}\lambda-\frac{\lambda}{2}\sum_{i=1}^{N}(x_{i}-\mu)^2\}
+\end{equation}
+where we have:
+\begin{gather}
+a_{N}=a_{0}+\frac{N}{2}\\
+b_{N}=b_{0}+\frac{N}{2}\sigma^{2}_{\text{ML}}
+\end{gather}
+For multivariate situation, the likelihood function is:
+\begin{equation}
+\Pr(\mathbf{X}\vert\Lambda)\varpropto\vert\Lambda\vert^{\frac{N}{2}}\exp{}(-\frac{1}{2}\sum_{i=1}^{N}(\mathbf{x}_{i}-\boldsymbol{\mu})^{\mathrm{T}}\Lambda(\mathbf{x}_{i}-\boldsymbol{\mu}))
+\end{equation}
+If we choose the prior to be Wishart distribution $\mathcal{W}(\Lambda\vert\mathbf{W}_{0},v_{0})$, then the posterior keeps the same form $\mathcal{W}(\Lambda\vert\mathbf{W}_{N},v_{N})$ with the prior (Ex 2.45):
+\begin{equation}
+\begin{split}
+\Pr(\Lambda\vert\mathbf{X})&\varpropto{}\vert\Lambda\vert^{\frac{v_{0}-D-1}{2}}\vert\Lambda\vert^{\frac{N}{2}}\exp{}\{-\frac{1}{2}(\text{Tr}(\mathbf{W}_{0}^{-1}\Lambda)+\sum_{i=1}^{N}(\mathbf{x}_{i}-\boldsymbol{\mu})^{\mathrm{T}}\Lambda(\mathbf{x}_{i}-\boldsymbol{\mu}))\}\\
+&=\vert\Lambda\vert^{\frac{N+v_{0}-D-1}{2}}\exp{}\{-\frac{1}{2}(\text{Tr}(\mathbf{W}_{0}^{-1}\Lambda)+\text{Tr}(\sum_{i=1}^{N}(\mathbf{x}_{i}-\boldsymbol{\mu})^{\mathrm{T}}\Lambda(\mathbf{x}_{i}-\boldsymbol{\mu})))\}\\
+&=\vert\Lambda\vert^{\frac{N+v_{0}-D-1}{2}}\exp{}\{-\frac{1}{2}(\text{Tr}(\mathbf{W}_{0}^{-1}\Lambda)+\text{Tr}(\sum_{i=1}^{N}\Lambda(\mathbf{x}_{i}-\boldsymbol{\mu})(\mathbf{x}_{i}-\boldsymbol{\mu})^{\mathrm{T}}))\}\quad{}(\because\text{\eqref{eqn:trquadraticchange}})\\
+&=\vert\Lambda\vert^{\frac{N+v_{0}-D-1}{2}}\exp{}\{-\frac{1}{2}(\text{Tr}(\mathbf{W}_{0}^{-1}\Lambda)+\text{Tr}(\sum_{i=1}^{N}(\mathbf{x}_{i}-\boldsymbol{\mu})(\mathbf{x}_{i}-\boldsymbol{\mu})^{\mathrm{T}}\Lambda))\}\quad{}(\because\text{\eqref{eqn:exchangetr}})\\
+&=\vert\Lambda\vert^{\frac{N+v_{0}-D-1}{2}}\exp{}\{-\frac{1}{2}\text{Tr}\{(\mathbf{W}_{0}^{-1}+\sum_{i=1}^{N}(\mathbf{x}_{i}-\boldsymbol{\mu})(\mathbf{x}_{i}-\boldsymbol{\mu})^{\mathrm{T}})\Lambda\}\}\\
+\end{split}
+\end{equation}
+where we have:
+\begin{gather}
+v_{N}=N+v_{0}\\
+\mathbf{W}_{N}=(\mathbf{W}_{0}+\sum_{i=1}^{N}(\mathbf{x}_{i}-\boldsymbol{\mu})(\mathbf{x}_{i}-\boldsymbol{\mu})^{\mathrm{T}})^{-1}
+\end{gather}
+
+
+%Suppose both mean $\mu$ and variance $\sigma=\frac{1}{\lambda}$ are unknown, to calculate its posterior $\Pr(\mu,\lambda\vert\mathbf{X})$ we firstly check the form of likelihood function:
+%\begin{equation}
+%\begin{split}
+%\Pr(\mathbf{X}\vert\mu\lambda)&=\prod_{i=1}^{N}(\frac{\lambda}{2\pi})^{\frac{1}{2}}\exp{}\{-\frac{\lambda}{2}(x_{i}-\mu)^2\}\\
+%&\varpropto[\lambda^{\frac{1}{2}}\exp{}(-\frac{\lambda\mu^2}{2})]^{N}\exp{}\{-\frac{\lambda}{2}\sum_{i=1}^{N}x_{i}^{2}+\lambda\mu\sum_{i=1}^{N}x_{i}\}
+%\end{split}
+%\end{equation}

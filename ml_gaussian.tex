@@ -1,0 +1,174 @@
+\subsubsection{Maximum likelihood for the Gaussian}
+(Preliminary)
+\begin{definition}
+The trace of a square matrix is the sum of the elements on its
+diagonal, i.e., $\text{Tr}(A_{n\times{}n})=\sum_{i=1}^{n}A_{ii}$.
+\end{definition}
+\begin{conclusion}
+\begin{equation}
+\text{Tr}(AB)=\text{Tr}(BA)
+\label{eqn:exchangetr}    
+\end{equation}
+By which we can generalize to \emph{cyclic} property of the trace
+operator: $\text{Tr}(ABC)=\text{Tr}(CAB)=\text{Tr}(BCA)$.
+\end{conclusion}
+\begin{proof}
+Suppose $A,B$ is of size $n\times{}m$ and $m\times{}n$.
+
+
+$\forall{}i\in{}1,\ldots,n:(AB)_{ii}=\sum_{k=1}^{m}A_{ik}B_{ki}$ Thus
+$\text{Tr}(AB)=\sum_{i=1}^{n}\sum_{k=1}^{m}A_{ik}B_{ki}$.
+
+
+The other, $\text{Tr}(BA)=\sum_{i=1}^{m}\sum_{k=1}^{n}B_{ik}A_{ki}$.
+Obviously, in these two cases, each element of $A$ is matched to a corresponding element
+of $B$ in the same way.
+\end{proof}
+\begin{conclusion}
+\begin{equation}
+\text{Tr}(\mathbf{x}^{\mathrm{T}}A\mathbf{x})=\text{Tr}(A\mathbf{x}\mathbf{x}^{\mathrm{T}})
+\label{eqn:trquadraticchange}
+\end{equation}
+\end{conclusion}
+\begin{proof}
+Obviously, the left-hand side equals
+$\sum_{i=1}^{M}\sum_{j=1}^{M}\mathbf{x}_{i}\mathbf{x}_{j}A_{ij}$.
+
+
+$\mathbf{x}\mathbf{x}^{\mathrm{T}}=\begin{bmatrix}\mathbf{x}_{1}\mathbf{x}_{1}&\cdots{}&\mathbf{x}_{1}\mathbf{x}_{M}\\\vdots{}&\ddots{}&\vdots{}\\\mathbf{x}_{M}\mathbf{x}_{1}&\cdots{}&\mathbf{x}_{M}\mathbf{x}_{M}\\\end{bmatrix}$
+and suppose $A\mathbf{x}\mathbf{x}^{\mathrm{T}}=R$, then
+$R_{ii}=\sum_{j=1}^{M}A_{ij}\mathbf{x}_{j}\mathbf{x}_{i}$. Trace is
+the sum of elements in diagonal, thus it equals
+$\sum_{i=1}^{M}\sum_{j=1}^{M}A_{ij}\mathbf{x}_{j}\mathbf{x}_{i}$.
+\end{proof}
+\begin{conclusion}
+\begin{equation}
+\frac{\partial{}\text{Tr}(AB)}{\partial{}x}=\text{Tr}(\frac{\partial{}A}{\partial{}x}B)
+\label{eqn:tediousequation}
+\end{equation}
+when $B$ is fixed or is not functional to $x$.
+\end{conclusion}
+\begin{proof}
+Just write out the subscripts.
+\end{proof}
+\begin{conclusion}
+\begin{equation}
+\frac{\partial}{\partial{}x}(A^{-1})=-A^{-1}\frac{\partial{}A}{\partial{}x}A^{-1}
+\label{eqn:dxAinv}
+\end{equation}
+\begin{proof}
+$\because{}0=\frac{\partial{}I}{\partial{}x}=\frac{\partial{}AA^{-1}}{\partial{}x}=\frac{\partial{}A}{\partial{}x}A^{-1}+A\frac{\partial{}A^{-1}}{\partial{x}}$
+\end{proof}
+\end{conclusion}
+\begin{conclusion}
+For a symmetric, strictly positive definite matrix $A_{M\times{}M}$, we have:
+\begin{equation}
+\frac{\partial}{\partial{}x}\ln{}\vert{}A\vert{}=\text{Tr}(A^{-1}\frac{\partial{}A}{\partial{}x})
+\label{eqn:appc22}
+\end{equation}
+\end{conclusion}
+\begin{proof}
+$\because{}A=A^{\mathrm{T}}\therefore{}\text{ by
+    \eqref{eqn:detofsymmetric} we have
+}\vert{}A\vert{}=\prod_{i=1}^{M}\lambda_{i}$
+
+
+Then the left-hand side can be expressed as:
+\begin{equation}
+\sum_{i=1}^{M}\frac{1}{\lambda_i}\frac{\partial{}\lambda_{i}}{\partial{}x}
+\label{eqn:leftofc22}
+\end{equation}
+
+
+Use \eqref{eqn:factcovariance} and \eqref{eqn:factprecise}, we
+express $A^{-1}\frac{\partial{}A}{\partial{}x}$ as:
+\begin{equation}
+\begin{split}
+A^{-1}\frac{\partial{}A}{\partial{}x}&=\sum_{i=1}^{M}\frac{1}{\lambda_{i}}\mathbf{u}_{i}\mathbf{u}_{i}^{\mathrm{T}}\sum_{j=1}^{M}\frac{\partial{}\lambda_{j}\mathbf{u}_{j}\mathbf{u}_{j}^{\mathrm{T}}}{\partial{}x}\\
+&=\sum_{i=1}^{M}\sum_{j=1}^{M}\frac{1}{\lambda_{i}}\mathbf{u}_{i}\mathbf{u}_{i}^{\mathrm{T}}\frac{\partial{}\lambda_{j}\mathbf{u}_{j}\mathbf{u}_{j}^{\mathrm{T}}}{\partial{}x}\\
+&=\sum_{i=1}^{M}\sum_{j=1}^{M}\frac{1}{\lambda_{i}}\mathbf{u}_{i}\mathbf{u}_{i}^{\mathrm{T}}(\frac{\partial{}\lambda_{j}}{\partial{}x}\mathbf{u}_{j}\mathbf{u}_{j}^{\mathrm{T}}+\lambda_{j}\frac{\partial{}\mathbf{u}_{j}\mathbf{u}_{j}^{\mathrm{T}}}{\partial{}x})\\
+&=\sum_{i=1}^{M}\frac{1}{\lambda_i}\frac{\partial{}\lambda_i}{\partial{}x}\mathbf{u}_{i}\mathbf{u}_{i}^{\mathrm{T}}+\sum_{i=1}^{M}\sum_{j=1}^{M}\frac{\lambda_j}{\lambda_i}\mathbf{u}_{i}\mathbf{u}_{i}^{\mathrm{T}}\frac{\partial{}\mathbf{u}_{j}\mathbf{u}_{j}^{\mathrm{T}}}{\partial{}x}\quad{}(\because{}\mathbf{u}_{i}^{\mathrm{T}}\mathbf{u}_{j}=I_{ij})
+\end{split}
+\label{eqn:c22expand}
+\end{equation}
+
+
+$\because{}\forall{}i\in{}1,\ldots,M:\text{Tr}(\mathbf{u}_{i}\mathbf{u}_{i}^{\mathrm{T}})=\Vert{}\mathbf{u}_{i}\Vert^{2}=1\therefore{}\text{Tr}(\sum_{i=1}^{M}\frac{1}{\lambda_i}\frac{\partial{}\lambda_i}{\partial{}x}\mathbf{u}_{i}\mathbf{u}_{i}^{\mathrm{T}})=\sum_{i=1}^{M}\frac{1}{\lambda_i}\frac{\partial{}\lambda_i}{\lambda{}x}\text{Tr}(\mathbf{u}_{i}\mathbf{u}_{i}^{\mathrm{T}})=\text{\eqref{eqn:leftofc22}}$.
+Hence, next step is to prove the remaining term in the right-hand side
+of $\eqref{eqn:c22expand}$ vanishes.
+
+
+\begin{equation}
+\begin{split}
+&\text{Tr}\{\sum_{i=1}^{M}\sum_{j=1}^{M}\frac{\lambda_j}{\lambda_i}\mathbf{u}_{i}\mathbf{u}_{i}^{\mathrm{T}}(\frac{\partial{}\mathbf{u}_j}{\partial{}x}\mathbf{u}_{j}^{\mathrm{T}}+\mathbf{u}_{j}\frac{\partial{}\mathbf{u}_{j}^{\mathrm{T}}}{\partial{}x})\}\quad{}(\because{}(AB)'=A'B+AB')\\
+&=\text{Tr}\{\sum_{i=1}^{M}\sum_{j=1}^{M}\frac{\lambda_j}{\lambda_i}\mathbf{u}_{i}\mathbf{u}_{i}^{\mathrm{T}}\frac{\partial{}\mathbf{u}_j}{\partial{}x}\mathbf{u}_{j}^{\mathrm{T}}\}+\text{Tr}(\sum_{i=1}^{M}\mathbf{u}_{i}\frac{\partial{}\mathbf{u}_{i}^{\mathrm{T}}}{\partial{}x})\quad{}(\because{}\mathbf{u}_{i}^{\mathrm{T}}\mathbf{u}_{j}=I_{ij})\\
+&=\sum_{i=1}^{M}\sum_{j=1}^{M}\frac{\lambda_j}{\lambda_i}\text{Tr}(\mathbf{u}_{i}\mathbf{u}_{i}^{\mathrm{T}}\frac{\partial{}\mathbf{u}_j}{\partial{}x}\mathbf{u}_{j}^{\mathrm{T}})+\text{Tr}(\sum_{i=1}^{M}\mathbf{u}_{i}\frac{\partial{}\mathbf{u}_{i}^{\mathrm{T}}}{\partial{}x})\\
+&=\sum_{i=1}^{M}\sum_{j=1}^{M}\frac{\lambda_j}{\lambda_i}\text{Tr}(\mathbf{u}_{j}^{\mathrm{T}}\mathbf{u}_{i}\mathbf{u}_{i}^{\mathrm{T}}\frac{\partial{}\mathbf{u}_j}{\partial{}x})+\text{Tr}(\sum_{i=1}^{M}\mathbf{u}_{i}\frac{\partial{}\mathbf{u}_{i}^{\mathrm{T}}}{\partial{}x})\quad{}(\because{}\text{Tr}(AB)=\text{Tr}(BA))\\
+&=\text{Tr}(\sum_{i=1}^{M}\sum_{j=1}^{M}\frac{\lambda_j}{\lambda_i}\mathbf{u}_{j}^{\mathrm{T}}\mathbf{u}_{i}\mathbf{u}_{i}^{\mathrm{T}}\frac{\partial{}\mathbf{u}_j}{\partial{}x})+\text{Tr}(\sum_{i=1}^{M}\mathbf{u}_{i}\frac{\partial{}\mathbf{u}_{i}^{\mathrm{T}}}{\partial{}x})\\
+&=\text{Tr}(\sum_{i=1}^{M}\mathbf{u}_{i}^{\mathrm{T}}\frac{\partial{}\mathbf{u}_{i}}{\partial{}x})+\text{Tr}(\sum_{i=1}^{M}\mathbf{u}_{i}\frac{\partial{}\mathbf{u}_{i}^{\mathrm{T}}}{\partial{}x})\\
+&=\text{Tr}(\sum_{i=1}^{M}\frac{\partial{}\mathbf{u}_{i}}{\partial{}x}\mathbf{u}_{i}^{\mathrm{T}})+\text{Tr}(\sum_{i=1}^{M}\mathbf{u}_{i}\frac{\partial{}\mathbf{u}_{i}^{\mathrm{T}}}{\partial{}x})\\
+&=\text{Tr}(\sum_{i=1}^{M}\frac{\partial{}\mathbf{u}_{i}\mathbf{u}_{i}^{\mathrm{T}}}{\partial{}x})=\text{Tr}(\frac{\partial{}\sum_{i=1}^{M}\mathbf{u}_{i}\mathbf{u}_{i}^{\mathrm{T}}}{\partial{}x})=\text{Tr}(\frac{\partial{}UU^{\mathrm{T}}}{\partial{}x})=\text{Tr}(\frac{\partial{}I}{\partial{}x})=0
+\end{split}
+\end{equation}
+\end{proof}
+
+
+Given $\mathbf{X}=\{\mathbf{x}_{1},\ldots,\mathbf{x}_{N}\}$ where each
+$\mathbf{x}_i$ is drawn \emph{independently} from a $D$-dimensional
+Gaussian distribution. We estimate the parameters of the unknown
+distribution by maximizing the log likelihood function:
+\begin{equation}
+\ln{}\Pr(\mathbf{X}\vert{}\mu,\Sigma)=-\frac{ND}{2}\ln(2\pi)-\frac{N}{2}\ln\vert\Sigma\vert-\frac{1}{2}\sum_{i=1}^{N}(\mathbf{x}_{i}-\boldsymbol{\mu})^{\mathrm{T}}\Sigma^{-1}(\mathbf{x}_{i}-\boldsymbol{\mu})
+\label{eqn:loglikelihoodofgaussian}
+\end{equation}
+
+
+Firstly, we calculate the derivative of
+\eqref{eqn:loglikelihoodofgaussian} w.r.t $\boldsymbol{\mu}$. Suppose
+resulting vector is $\mathbf{r}$,
+          $\forall{}i\in{}1,\ldots,D:\mathbf{r}_{i}=\frac{\partial{}\ln\Pr(\mathbf{X}\vert\boldsymbol{\mu},\Sigma)}{\partial{}\mathbf{r}_i}$. 
+Consider a quadratic form
+$\Delta^2=(\mathbf{x}-\boldsymbol{\mu})^{\mathrm{T}}\Sigma^{-1}(\mathbf{x}-\boldsymbol{\mu})=\sum_{i=1}^{D}\sum_{j=1}^{D}(\mathbf{x}_{i}-\boldsymbol{\mu}_i)(\mathbf{x}_{j}-\boldsymbol{\mu}_j)\Sigma^{-1}_{ij}=\sum_{i=1}^{D}\sum_{j=1}^{D}(\mathbf{x}_{i}\mathbf{x}_{j}-\mathbf{x}_{j}\boldsymbol{\mu}_{i}-\mathbf{x}_{i}\boldsymbol{\mu}_{j}+\boldsymbol{\mu}_{i}\boldsymbol{\mu}_{j})\Sigma^{-1}_{ij}$.
+\begin{equation}
+\begin{split}
+\because{}\frac{\partial{}\Delta^2}{\partial{\boldsymbol{\mu}_i}}&=2\sum_{j=1}^{D}(\boldsymbol{\mu}_{j}-\mathbf{x}_{j})\Sigma^{-1}_{ij}\\
+\therefore{}\frac{\partial{}\Delta^2}{\partial{\boldsymbol{\mu}}}&=2\Sigma^{-1}(\boldsymbol{\mu}-\mathbf{x})
+\end{split}
+\label{eqn:dd2mu}
+\end{equation}
+According to \eqref{eqn:dd2mu}, we know that
+$\frac{\partial{}\ln{}\Pr(\mathbf{X}\vert{}\mu,\Sigma)}{\partial{}\boldsymbol{\mu}}=\sum_{i=1}^{N}\Sigma^{-1}(\mathbf{x}_{n}-\boldsymbol{\mu})$
+and set it to zero so that:
+\begin{equation}
+\mu_{\text{ML}}=\frac{1}{N}\sum_{i=1}^{N}\mathbf{x}_n
+\label{eqn:mlofgaussianmean}
+\end{equation}
+
+
+Then we fix $\boldsymbol{\mu}$ in \eqref{eqn:loglikelihoodofgaussian}
+to $\boldsymbol{\mu}_{\text{ML}}$ and calculate derivative of
+\eqref{eqn:loglikelihoodofgaussian} w.r.t. $\Sigma$. Suppose the answer
+is matrix $R$ where
+$R_{ij}=\frac{\partial{}\ln\Pr(\mathbf{X}\vert\boldsymbol{\mu},\Sigma)}{\partial{}\Sigma_{ij}}$.
+Hence, we can consider the derivative of
+\eqref{eqn:loglikelihoodofgaussian} w.r.t. a certain $x$:
+\begin{equation}
+\begin{split}
+\frac{\partial{}\ln\Pr(\mathbf{X}\vert\boldsymbol{\mu},\Sigma)}{\partial{}x}=&-\frac{N}{2}\frac{\ln\vert\Sigma\vert}{\partial{}x}-\frac{1}{2}\frac{\partial{}\sum_{n=1}^{N}(\mathbf{x}_{n}-\boldsymbol{\mu})^{\mathrm{T}}\Sigma^{-1}(\mathbf{x}_{n}-\boldsymbol{\mu})}{\partial{}x}\\
+=&-\frac{N}{2}\text{Tr}(\Sigma^{-1}\frac{\partial{}\Sigma}{\partial{}x})-\frac{1}{2}\sum_{n=1}^{N}\frac{\partial{}\text{Tr}((\mathbf{x}_{n}-\boldsymbol{\mu})^{\mathrm{T}}\Sigma^{-1}(\mathbf{x}_{n}-\boldsymbol{\mu}))}{\partial{}x}\quad{}(\because{}\text{\eqref{eqn:appc22}})\\
+=&-\frac{N}{2}\text{Tr}(\Sigma^{-1}\frac{\partial{}\Sigma}{\partial{}x})-\frac{1}{2}\sum_{n=1}^{N}\frac{\partial{}\text{Tr}(\Sigma^{-1}(\mathbf{x}_{n}-\boldsymbol{\mu})(\mathbf{x}_{n}-\boldsymbol{\mu})^{\mathrm{T}})}{\partial{}x}\quad{}(\because{}\text{\eqref{eqn:trquadraticchange}})\\
+=&-\frac{N}{2}\text{Tr}(\Sigma^{-1}\frac{\partial{}\Sigma}{\partial{}x})-\frac{1}{2}\frac{\partial{}\text{Tr}(\Sigma^{-1}\sum_{n=1}^{N}(\mathbf{x}_{n}-\boldsymbol{\mu})(\mathbf{x}_{n}-\boldsymbol{\mu})^{\mathrm{T}})}{\partial{}x}\\
+=&-\frac{N}{2}\text{Tr}(\Sigma^{-1}\frac{\partial{}\Sigma}{\partial{}x})-\frac{1}{2}\text{Tr}(\frac{\partial{}\Sigma^{-1}}{\partial{}x}\sum_{n=1}^{N}(\mathbf{x}_{n}-\boldsymbol{\mu})(\mathbf{x}_{n}-\boldsymbol{\mu})^{\mathrm{T}})\quad{}(\because{}\text{\eqref{eqn:tediousequation}})\\
+=&-\frac{N}{2}\text{Tr}(\Sigma^{-1}\frac{\partial{}\Sigma}{\partial{}x})-\frac{1}{2}\text{Tr}(-\Sigma^{-1}\frac{\partial\Sigma}{\partial{}x}\Sigma^{-1}\sum_{n=1}^{N}(\mathbf{x}_{n}-\boldsymbol{\mu})(\mathbf{x}_{n}-\boldsymbol{\mu})^{\mathrm{T}})\quad{}(\because{}\text{\eqref{eqn:dxAinv}})\\
+=&-\frac{N}{2}\text{Tr}(\frac{\partial{}\Sigma{}}{\partial{}x}\Sigma^{-1}I)+\frac{1}{2}\text{Tr}(\frac{\partial\Sigma}{\partial{}x}\Sigma^{-1}\sum_{n=1}^{N}(\mathbf{x}_{n}-\boldsymbol{\mu})(\mathbf{x}_{n}-\boldsymbol{\mu})^{\mathrm{T}}\Sigma^{-1})\quad{}(\because{}\text{\eqref{eqn:exchangetr}})\\
+=&-\frac{N}{2}\text{Tr}(\frac{\partial{}\Sigma}{\partial{}x}\Sigma^{-1}\Sigma\Sigma^{-1})+\frac{1}{2}\text{Tr}(\frac{\partial\Sigma}{\partial{}x}\Sigma^{-1}\sum_{n=1}^{N}(\mathbf{x}_{n}-\boldsymbol{\mu})(\mathbf{x}_{n}-\boldsymbol{\mu})^{\mathrm{T}}\Sigma^{-1})\\
+=&\frac{1}{2}\text{Tr}(\frac{\partial{}\Sigma}{\partial{}x}\Sigma^{-1}\{\sum_{n=1}^{N}(\mathbf{x}_{n}-\boldsymbol{\mu})(\mathbf{x}_{n}-\boldsymbol{\mu})^{\mathrm{T}}-N\Sigma\}\Sigma^{-1})
+\end{split}
+\end{equation}
+Thus, we require that
+$(\mathbf{x}_{n}-\boldsymbol{\mu})(\mathbf{x}_{n}-\boldsymbol{\mu})^{\mathrm{T}}-N\Sigma=0$,
+    i.e.,
+\begin{equation}
+\Sigma=\frac{1}{N}\sum_{i=1}^{N}(\mathbf{x}_{n}-\boldsymbol{\mu})(\mathbf{x}_{n}-\boldsymbol{\mu})^{\mathrm{T}}
+\label{eqn:mlofgaussiancov}
+\end{equation}

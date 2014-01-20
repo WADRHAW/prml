@@ -1,0 +1,46 @@
+\subsubsection{Geometry of least squares}
+(Preliimnary)
+\begin{conclusion}
+\begin{equation}
+\text{Nul}\quad{}A=\text{Nul}\quad{}A^{\mathrm{T}}A
+\label{eqn:zs}
+\end{equation}
+\end{conclusion}
+\begin{proof}
+Suppose $A\mathbf{x}=\mathbf{0}$, then $A^{\mathrm{T}}A\mathbf{x}=A^{\mathrm{T}}\mathbf{0}=\mathbf{0}$.
+
+
+Inversely, suppose $A^{\mathrm{T}}A\mathbf{x}=\mathbf{0}$, then $\mathbf{x}^{\mathrm{T}}A^{\mathrm{T}}A\mathbf{x}=\mathbf{x}^{\mathrm{T}}\mathbf{0}=0$. $\because{}\mathbf{x}^{\mathrm{T}}A^{\mathrm{T}}A\mathbf{x}=(A\mathbf{x})^{\mathrm{T}}A\mathbf{x}=\|A\mathbf{x}\|\therefore{}A\mathbf{x}=\mathbf{0}$
+
+
+$\because{}A\mathbf{x}=\mathbf{0}$ if and only if $A^{\mathrm{T}}A\mathbf{x}=\mathbf{0}\therefore{}\text{Nul}\quad{}A=\text{Nul}\quad{}A^{\mathrm{T}}A$
+\end{proof}
+
+
+\begin{conclusion}
+Let $A$ be an $m\times{}n$ matrix such that $A^{\mathrm{T}}A$ is invertible. the columns of $A$ will be linearly independent.
+\end{conclusion}
+\begin{proof}
+(By contradiction) If columns of $A$ are not linearly independent, $\exists\mathbf{b}\neq\mathbf{0}$. such that $A\mathbf{b}=\mathbf{0}$.  In such case, $A^{\mathrm{T}}A\mathbf{b}=A^{\mathrm{T}}\mathbf{0}=\mathbf{0}$. However, an invertible matrix's null space should contain only one element $\mathbf{0}$.
+\end{proof}
+
+
+\begin{conclusion}
+Let $A$ be an $m\times{}n$ matrix whose columns are linearly independent. Then we have
+\begin{itemize}
+\item $A^{\mathrm{T}}A$ is an invertible matrix
+\item $A$ must have as many rows as columns
+\end{itemize}
+\end{conclusion}
+\begin{proof}
+Based on \eqref{eqn:zs}, $\text{Nul}\quad{}A^{\mathrm{T}}A=\{\mathbf{0}\}$, thus $A^{\mathrm{T}}A$ is a one-to-one mapping from $\Re^{n}$ to $\Re^{n}$, i.e., one-to-one and onto (invertible).
+
+If the number of rows is less than the number of columns (i.e., $m<n$), it is impossible to find $n$ linearly independent vectors in $\Re^{m}$.
+\end{proof}
+
+
+(Ex 3.2) Let's denote basis functions as $\phi_0,\ldots,\phi_{M-1}$ and training data as $(\mathbf{x}_{1},t_1),\ldots,(\mathbf{x}_{N},t_N)$ where $N>M$.  Then $\mathbf{t}=\begin{bmatrix}t_1\\\vdots\\t_N\end{bmatrix}\in\Re^{N}$ and $\boldsymbol{\phi}_{0},\ldots,\boldsymbol{\phi}_{M-1}$ span a subspace in $\Re^{N}$ where $\boldsymbol{\phi}_{i}=\begin{bmatrix}\phi_{i}(\mathbf{x}_1)\\\vdots\\\phi_{i}(\mathbf{x}_N)\end{bmatrix}$. Now we can define the least-sqaures problem as $\boldsymbol{\Phi}\mathbf{w}=\mathbf{t}$ where $\boldsymbol{\Phi}=\begin{bmatrix}\boldsymbol{\phi}_{0}&\cdots&\boldsymbol{\phi}_{M-1}\\\end{bmatrix}$.  As we know, suppose the least-sqaures solution is $\mathbf{\hat{w}}$, we have $\forall{}i,\boldsymbol{\phi}_{i}^{\mathrm{T}}(\mathbf{t}-\boldsymbol{\Phi}\mathbf{\hat{w}})=0$, i.e., the least-squares solusions coincides with the nonempty set of solutions of the \emph{normal equation}:
+\begin{equation}
+\boldsymbol{\Phi}^{\mathrm{T}}\mathbf{t}=\boldsymbol{\Phi}^{\mathrm{T}}\boldsymbol{\Phi}\mathbf{w}
+\end{equation}
+Based on preliminaries in this part, when $\boldsymbol{\phi}_i$s are linearly independent, $\boldsymbol{\Phi}^{\mathrm{T}}\boldsymbol{\Phi}$ is invertible and thus the solution of normal equation is unique: $\mathbf{\hat{w}}=(\boldsymbol{\Phi}^{\mathrm{T}}\boldsymbol{\Phi})^{-1}\boldsymbol{\Phi}^{\mathrm{T}}\mathbf{t}$. $\because{}\boldsymbol{\Phi}\mathbf{\hat{w}}$ is the projection of $\mathbf{t}$ in the subspace spaned by columns of $\boldsymbol{\Phi}\therefore{}\boldsymbol{\Phi}(\boldsymbol{\Phi}^{\mathrm{T}}\boldsymbol{\Phi})^{-1}\boldsymbol{\Phi}^{\mathrm{T}}$ is the matrix projects any vector in $\Re^{N}$ to the manifold spanced by columns of $\boldsymbol{\Phi}$.

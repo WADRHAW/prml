@@ -1,0 +1,39 @@
+\subsubsection{Maximum likelihood and sufficient statistics}
+(Ex 2.58)
+\begin{equation}
+-\nabla\nabla\ln{}g(\boldsymbol{\eta})=\text{cov}[\mathbf{u}(\mathbf{x})]
+\label{eqn:ex258}
+\end{equation}
+\begin{proof}
+Firstly, a exponential family's member is normalized:
+\begin{equation}
+\int{}h(\mathbf{x})g(\boldsymbol{\eta})\exp{}\{\boldsymbol{\eta}^{\mathrm{T}}\mathbf{u}(\mathbf{x})\}\text{d}\mathbf{x}=1
+\label{eqn:expnormalization}
+\end{equation}
+Then we take gradient of both sides of \eqref{eqn:expnormalization} w.r.t. $\boldsymbol{\eta}$:
+\begin{equation}
+\nabla{}g(\boldsymbol{\eta})\int{}h(\mathbf{x})\exp{}\{\boldsymbol{\eta}^{\mathrm{T}}\mathbf{u}(\mathbf{x})\}\text{d}\mathbf{x}+g(\boldsymbol{\eta})\int{}h(\mathbf{x})\exp{}\{\boldsymbol{\eta}^{\mathrm{T}}\mathbf{u}(\mathbf{x})\}\mathbf{u}(\mathbf{x})\text{d}\mathbf{x}=0\quad{}(\because{}\frac{\partial{}\mathbf{a}^{\mathrm{T}}\mathbf{x}}{\partial{}\mathbf{a}}=\mathbf{x})\\
+\label{eqn:derexpnormal}
+\end{equation}
+Rearrange \eqref{eqn:derexpnormal} we have:
+\begin{equation}
+\begin{split}
+\mathbb{E}[\mathbf{u}(\mathbf{x})]&=g(\boldsymbol{\eta})\int{}h(\mathbf{x})\exp{}\{\boldsymbol{\eta}^{\mathrm{T}}\mathbf{x}\}\mathbf{u}(\mathbf{x})\text{d}\mathbf{x}\\
+&=-\nabla{}g(\boldsymbol{\eta})\int{}h(\mathbf{x})\exp{}\{\boldsymbol{\eta}^{\mathrm{T}}\mathbf{u}(\mathbf{x})\}\{\}\text{d}\mathbf{x}\\
+&=-\nabla{}g(\boldsymbol{\eta})\frac{1}{g(\boldsymbol{\eta})}\quad{}(\because{}\text{\eqref{eqn:expnormalization} implies it})\\
+&=-\nabla{}\ln{}g(\boldsymbol{\eta})
+\end{split}
+\label{eqn:firstgradientofexpfamilynormal}
+\end{equation}
+To prove \eqref{eqn:ex258}, we take gradient of both sides of \eqref{eqn:firstgradientofexpfamilynormal}: (note that $\mathbb{E}[\mathbf{u}(\mathbf{x})]$ is a column vector so that the resulting gradient is a matrix because $\frac{\partial{}\mathbf{a}}{\partial{}\mathbf{b}}=R$ where $R_{ij}=\frac{\partial{}\mathbf{a}_i}{\partial{}\mathbf{b}_j}$)
+\begin{equation}
+\begin{split}
+-\nabla{}\nabla{}\ln{}g(\boldsymbol{\eta})&=\nabla{}\mathbb{E}[\mathbf{u}(\mathbf{x})]\\
+&=\int{}h(\mathbf{x})\exp{}\{\boldsymbol{\eta}^{\mathrm{T}}\mathbf{u}(\mathbf{x})\}\mathbf{u}(\mathbf{x})\text{d}\mathbf{x}(\nabla{}g(\boldsymbol{\eta}))^{\mathrm{T}}+g(\boldsymbol{\eta})\int{}h(\mathbf{x})\nabla\exp{}\{\boldsymbol{\eta}^{\mathrm{T}}\mathbf{u}(\mathbf{x})\}\mathbf{u}(\mathbf{x})\text{d}\mathbf{x}\\
+&(\because{}\exp{}\{\mathbf{a}^{\mathrm{T}}\mathbf{b}\}\mathbf{b}\text{ is a column vector and }\frac{\mathbf{a}^{\mathrm{T}}\mathbf{b}\mathbf{b}}{\partial{}\mathbf{a}}=\mathbf{b}\mathbf{b}^{\mathrm{T}})\\
+&=\int{}h(\mathbf{x})\exp{}\{\boldsymbol{\eta}^{\mathrm{T}}\mathbf{u}(\mathbf{x})\}\mathbf{u}(\mathbf{x})\text{d}\mathbf{x}(\nabla{}g(\boldsymbol{\eta}))^{\mathrm{T}}+g(\boldsymbol{\eta})\int{}h(\mathbf{x})\exp{}\{\boldsymbol{\eta}^{\mathrm{T}}\mathbf{u}(\mathbf{x})\}\mathbf{u}(\mathbf{x})\mathbf{u}(\mathbf{x})^{\mathrm{T}}\text{d}\mathbf{x}\\
+&(\because{}\text{ \eqref{eqn:derexpnormal} implies }(\nabla{}g(\boldsymbol{\eta}))^{\mathrm{T}}=-g^2(\boldsymbol{\eta})\int{}h(\mathbf{x})\exp{}\{\boldsymbol{\eta}^{\mathrm{T}}\mathbf{u}(\mathbf{x})\}\{\}\mathbf{u}^{\mathrm{T}}(\mathbf{x})\text{d}\mathbf{x})\\
+&=\mathbf{E}[\mathbf{u}(\mathbf{x})\mathbf{u}^{\mathrm{T}}(\mathbf{x})]-\mathbb{E}[\mathbf{u}(\mathbf{x})]\mathbb{E}[\mathbf{u}^{\mathrm{T}}(\mathbf{x})]=\text{cov}[\mathbf{u}(\mathbf{x})]
+\end{split}
+\end{equation}
+\end{proof}

@@ -1,0 +1,27 @@
+\subsubsection{The Dirichlet distribution}
+The conjugate prior is \emph{Dirichlet} distribution:
+\begin{definition}
+\begin{equation}
+\text{Dir}(\boldsymbol{\mu}\vert\boldsymbol{\alpha})=\frac{\Gamma(\alpha_{1}+\cdots+\alpha_{K})}{\Gamma(\alpha_1)\cdots\Gamma(\alpha_K)}\prod_{i=1}^{K}\mu_{i}^{\alpha_{i}-1}
+\label{eqn:dirichlet}
+\end{equation}
+\end{definition}
+(Ex 2.9) Dirichlet distribution is normalized:
+\begin{proof}
+(By induction) Base case is beta distribution. Suppose $\int_{\sum_{i=1}^{N-1}\mu_{i}=1}C_{N-1}\prod_{i=1}^{N-1}\mu_{i}^{\alpha_{i}-1}\text{d}\boldsymbol{\mu}=1$ where $C_{N-1}=\frac{\Gamma(\alpha_{1}+\cdots+\alpha_{N-1})}{\Gamma(\alpha_1)\cdots\Gamma(\alpha_{N-1})}$, we begin to prove the $N$th case with the normalization requirement:
+\begin{equation}
+\begin{split}
+1&=\int_{\sum_{i=1}^{N}}C_{N}\prod_{i=1}^{N-1}\mu_{i}^{\alpha_{i}-1}(1-\sum_{j-1}^{N-1}\mu_j)^{\alpha_{N}-1}\text{d}\boldsymbol{\mu}\\
+&=C_{N}\int_{0}^{1}\prod_{i=1}^{N-2}\mu_{i}^{\alpha_{i}-1}\int_{0}^{1-\sum_{i=1}^{N-2}\mu_i}\mu_{N-1}^{\alpha_{N-1}-1}\{1-(\sum_{j-1}^{N-2}\mu_j)-\mu_{N-1}\}^{\alpha_{N}-1}\text{d}\mu_{N-1}\text{d}\mu_{1}\cdot\text{d}\mu_{N-2}\\
+&(\text{substitute }\mu_{N-1}\text{ by }\mu_{N-1}=t(1-\sum_{j=1}^{N-2}\mu_{j}))\\
+&=C_{N}\int_{0}^{1}\prod_{i=1}^{N-2}\mu_{i}^{\alpha_{i}-1}\int_{0}^{1}t^{\alpha_{N-1}-1}(1-\sum_{j=1}^{N-2}\mu_{j})^{\alpha_{N-1}-1}\{(1-t)(1-\sum_{j=1}^{N-2}\mu_{j})\}^{\alpha_{N}-1}(1-\sum_{j=1}^{N-2}\mu_j)\text{d}t\text{d}\mu_{1}\cdots\text{d}\mu_{N-2}\\
+&=C_{N}\int_{0}^{1}\prod_{i=1}^{N-2}\mu_{i}^{\alpha_{i}-1}\int_{0}^{1}t^{\alpha_{N-1}-1}(1-t)^{\alpha_{N}-1}(1-\sum_{j=1}^{N-2}\mu_{j})^{\alpha_{N-1}+\alpha_{N}-1}\text{d}t\text{d}\mu_{1}\cdots\text{d}\mu_{N-2}\\
+&=C_{N}\int_{0}^{1}\prod_{i=1}^{N-2}\mu_{i}^{\alpha_{i}-1}(1-\sum_{j=1}^{N-2}\mu_{j})^{\alpha_{N-1}+\alpha_{N}-1}\text{d}\mu_{1}\cdots\text{d}\mu_{N-2}\int_{0}^{1}t^{\alpha_{N-1}-1}(1-t)^{\alpha_{N}-1}\text{d}t\\
+&(\text{use \eqref{eqn:gammaasintcircle}})\\
+&=C_{N}\int_{0}^{1}\prod_{i=1}^{N-2}\mu_{i}^{\alpha_{i}-1}(1-\sum_{j=1}^{N-2}\mu_{j})^{\alpha_{N-1}+\alpha_{N}-1}\text{d}\mu_{1}\cdots\text{d}\mu_{N-2}\frac{\Gamma(\alpha_{N-1})\Gamma(\Gamma_{N})}{\Gamma(\alpha_{N-1}+\alpha_{N})}\\
+&(\text{use the conclusion of }(N-1)\text{th case})\\
+&=C_{N}\frac{\Gamma(\alpha_1)\cdots\Gamma(\alpha_{N-2})\Gamma(\alpha_{N-1}+\alpha_{N})}{\Gamma(\sum_{i=1}^{N}\alpha_{i})}\frac{\Gamma(\alpha_{N-1})\Gamma(\Gamma_{N})}{\Gamma(\alpha_{N-1}+\alpha_{N})}\\
+&=C_{N}\frac{\Gamma(\alpha_1)\cdots\Gamma(\alpha_{N})}{\Gamma(\sum_{i=1}^{N}\alpha_{i})}
+\end{split}
+\end{equation}
+\end{proof}

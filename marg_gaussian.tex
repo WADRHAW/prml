@@ -1,0 +1,87 @@
+\subsubsection{Marginal Gaussian distributions}
+(Preliminary)
+\begin{conclusion}
+Suppose $A,B,C, D$ are matrices of dimension
+$p\times{}p,p\times{}q,q\times{}p,q\times{}q$ respectively. Besides,
+    $D$ is \emph{invertible}. Then we have:
+\begin{equation}
+\text{det}(\begin{bmatrix}A&B\\C&D\\\end{bmatrix})=\text{det}(D)\text{det}(A-BD^{-1}C)
+\label{eqn:blockmatricesdet}
+\end{equation}
+\end{conclusion}
+\begin{proof}
+\putansline{6}{6}
+\end{proof}
+We calculate $\Pr(\mathbf{x}_{a})$ by integrated out $\mathbf{x}_b$:
+\begin{equation}
+\Pr(\mathbf{x}_a)=\int{}\Pr(\mathbf{x}_{a},\mathbf{x}_{b})\text{d}\mathbf{x}_{b}
+\end{equation}
+
+
+Because we want to integrate out $\mathbf{x}_b$, we should firstly consider
+terms that are functional to $\mathbf{x}_b$ in
+\eqref{eqn:abquadratic}. Since $b$ is symmetric to $a$ in
+\eqref{eqn:abquadratic}, we can directly use
+\eqref{eqn:expandexponent}, \eqref{eqn:covagivenb} and
+\eqref{eqn:meanagivenb} to derive:
+\begin{equation}
+\begin{split}
+&-\frac{1}{2}\mathbf{x}_{b}^{\mathrm{T}}\Lambda_{bb}\mathbf{x}_{b}+\mathbf{x}_{b}^{\mathrm{T}}\{\Lambda_{bb}\boldsymbol{\mu}_{b}-\Lambda_{ba}(\mathbf{x}_{a}-\boldsymbol{\mu}_{a})\}\\
+=&-\frac{1}{2}\mathbf{x}_{b}^{\mathrm{T}}\Lambda_{bb}\mathbf{x}_{b}+\mathbf{x}_{b}^{\mathrm{T}}\mathbf{m}\quad{}(\text{where }\mathbf{m}=\Lambda_{bb}\boldsymbol{\mu}_{b}-\Lambda_{ba}(\mathbf{x}_{a}-\boldsymbol{\mu}_{a}))\\
+=&-\frac{1}{2}\mathbf{x}_{b}^{\mathrm{T}}\Lambda_{bb}\mathbf{x}_{b}+\mathbf{x}_{b}^{\mathrm{T}}\Lambda_{bb}(\Lambda_{bb}^{-1}\mathbf{m})-\frac{1}{2}(\Lambda_{bb}^{-1}\mathbf{m})^{\mathrm{T}}\Lambda_{bb}(\Lambda_{bb}^{-1}\mathbf{m})+\frac{1}{2}(\Lambda_{bb}^{-1}\mathbf{m})^{\mathrm{T}}\Lambda_{bb}(\Lambda_{bb}^{-1}\mathbf{m})\\
+=&-\frac{1}{2}(\mathbf{x}_{b}-\Lambda_{bb}^{-1}\mathbf{m})^{\mathrm{T}}\Lambda_{bb}(\mathbf{x}_{b}-\Lambda_{bb}^{-1}\mathbf{m})+\frac{1}{2}\mathbf{m}^{\mathrm{T}}\Lambda_{bb}^{-1}\mathbf{m}
+\end{split}
+\label{eqn:onlybinquadratic}
+\end{equation}
+Note that $\mathbf{m}$ doesn't contain $\mathbf{x}_b$ and the first
+term in the right-hand side of \eqref{eqn:onlybinquadratic} is the
+standard quadratic form. Assuming $\mathbf{x}_{a}$ is $M$ dimensional, integration results:
+\begin{equation}
+\int{}\exp{}\{-\frac{1}{2}(\mathbf{x}_{b}-\Lambda_{bb}^{-1}\mathbf{m})^{\mathrm{T}}\Lambda_{bb}(\mathbf{x}_{b}-\Lambda_{bb}^{-1}\mathbf{m})\}\text{d}\mathbf{x}_{b}=(2\pi)^{\frac{D-M}{2}}\vert{}\Lambda_{bb}^{-1}\vert{}^{\frac{1}{2}}
+\label{eqn:intbresult}
+\end{equation}
+while $\frac{1}{2}\mathbf{m}^{\mathrm{T}}\Lambda_{bb}^{-1}\mathbf{m}$
+remains as exponent. We firstly expand it as:
+\begin{equation}
+\begin{split}
+\frac{1}{2}\mathbf{m}^{\mathrm{T}}\Lambda_{bb}^{-1}\mathbf{m}=&\frac{1}{2}(\Lambda_{bb}\boldsymbol{\mu}_{b}-\Lambda_{ba}(\mathbf{x}_{a}-\boldsymbol{\mu}_{a}))^{\mathrm{T}}\Lambda_{bb}^{-1}(\Lambda_{bb}\boldsymbol{\mu}_{b}-\Lambda_{ba}(\mathbf{x}_{a}-\boldsymbol{\mu}_{a}))\\
+=&\frac{1}{2}\{\boldsymbol{\mu}_{b}^{\mathrm{T}}\Lambda_{bb}\boldsymbol{\mu}_{b}-\boldsymbol{\mu}_{b}^{\mathrm{T}}\Lambda_{ba}(\mathbf{x}_{a}-\boldsymbol{\mu}_{a})-(\mathbf{x}_{a}-\boldsymbol{\mu}_{a})^{\mathrm{T}}\Lambda_{ab}\boldsymbol{\mu}_{b}+(\mathbf{x}_{a}-\boldsymbol{\mu}_{a})^{\mathrm{T}}\Lambda_{ab}\Lambda_{bb}^{-1}\Lambda_{ba}(\mathbf{x}_{a}-\boldsymbol{\mu}_{a})\}\\
+=&\frac{1}{2}(\mathbf{x}_{a}-\boldsymbol{\mu}_{a})^{\mathrm{T}}\Lambda_{ab}\Lambda_{bb}^{-1}\Lambda_{ba}(\mathbf{x}_{a}-\boldsymbol{\mu}_{a})-(\mathbf{x}_{a}-\boldsymbol{\mu}_{a})^{\mathrm{T}}\Lambda_{ab}\boldsymbol{\mu}_{b}+\frac{1}{2}\boldsymbol{\mu}_{b}^{\mathrm{T}}\Lambda_{bb}\boldsymbol{\mu}_{b}
+\end{split}
+\label{eqn:rmm}
+\end{equation}
+
+
+Then we consider terms that are not functional to $\mathbf{x}_b$ in
+\eqref{eqn:abquadratic}:
+\begin{equation}
+-\frac{1}{2}(\mathbf{x}_{a}-\boldsymbol{\mu}_{a})^{\mathrm{T}}\Lambda_{aa}(\mathbf{x}_{a}-\boldsymbol{\mu}_{a})+(\mathbf{x}_{a}-\boldsymbol{\mu}_{a})^{\mathrm{T}}\Lambda_{ab}\boldsymbol{\mu}_{b}-\frac{1}{2}\boldsymbol{\mu}_{b}^{\mathrm{T}}\Lambda_{bb}\boldsymbol{\mu}_{b}
+\label{eqn:hn2dwb}
+\end{equation}
+
+
+Combining \eqref{eqn:rmm} and \eqref{eqn:hn2dwb} we get:
+\begin{equation}
+\exp{}\{-\frac{1}{2}(\mathbf{x}_{a}-\boldsymbol{\mu}_{a})^{\mathrm{T}}(\Lambda_{aa}-\Lambda_{ab}\Lambda_{bb}^{-1}\Lambda_{ba})(\mathbf{x}_{a}-\boldsymbol{\mu}_{a})\}
+\label{eqn:margmd}
+\end{equation}
+Then we can prove it is normalized by transforming original
+normalization term through \eqref{eqn:blockmatricesdet} and substituting
+\eqref{eqn:intbresult} into it:
+\begin{equation}
+\begin{split}
+&\frac{1}{(2\pi)^{\frac{D}{2}}}\frac{1}{\vert{}\Sigma\vert{}^{\frac{1}{2}}}(2\pi)^{\frac{D-M}{2}}\vert{}\Lambda_{bb}^{-1}\vert{}^{\frac{1}{2}}\\
+=&\frac{1}{(2\pi)^{\frac{M}{2}}}\vert{}\Lambda\vert{}^{\frac{1}{2}}\frac{1}{\vert{}\Lambda_{bb}\vert{}^{\frac{1}{2}}}\quad{}(\because{}AA^{-1}=I,\vert{}A\vert{}\vert{}A^{-1}\vert{}=1)\\
+=&\frac{1}{(2\pi)^{\frac{M}{2}}}\frac{(\vert{}\Lambda_{bb}\vert{}\vert{}\Lambda_{aa}-\Lambda_{ab}\Lambda_{bb}^{-1}\Lambda_{ba}\vert{})^{\frac{1}{2}}}{\vert{}\Lambda_{bb}\vert{}^{\frac{1}{2}}}\\
+=&\frac{1}{(2\pi)^{\frac{M}{2}}}\frac{1}{\vert{}(\Lambda_{aa}-\Lambda_{ab}\Lambda_{bb}^{-1}\Lambda_{ba})^{-1}\vert{}^{\frac{1}{2}}}\\
+\end{split}
+\end{equation}
+\begin{conclusion}
+If two sets of random variables are jointly Gaussian, then the
+marginal probability distribution of one set integrated out the other
+is again Gaussian.
+\begin{equation}
+\Pr(\mathbf{x}_a)=\int{}\Pr(\mathbf{x}_{a},\mathbf{x}_{b})\text{d}\mathbf{x}_{b}=\mathcal{N}(\mathbf{x}_{a}\vert{}\boldsymbol{\mu}_{a},\Sigma_{aa})
+\label{eqn:marggaussian}
+\end{equation}
+\end{conclusion}

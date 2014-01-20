@@ -1,0 +1,131 @@
+\subsubsection{Conditional Gaussian distribution}
+(preliminaries)
+\begin{conclusion}
+\begin{equation}
+\begin{bmatrix}A&B\\C&D\\\end{bmatrix}^{-1}=\begin{bmatrix}M&-MBD^{-1}\\-D^{-1}CM&D^{-1}+D^{-1}CMBD^{-1}\\\end{bmatrix}
+\label{eqn:schurcomplement}
+\end{equation}
+where $A,B,D,D$ are respectively
+$p\times{}p,p\times{}q,q\times{}p,q\times{}q$ matrices and
+$M=(A-BD^{-1}C)^{-1}$. Note that $D$ is required to be
+\emph{invertible}. $M$ is known as the \emph{Schur complement} of the
+matrix on the left-hand side of \eqref{eqn:schurcomplement} w.r.t. the
+submatrix $D$.
+\end{conclusion}
+\begin{proof}
+Multiply
+$\begin{bmatrix}M&-MBD^{-1}\\-D^{-1}CM&D^{-1}+D^{-1}CMBD^{-1}\\\end{bmatrix}$
+by $\begin{bmatrix}A&B\\C&D\\\end{bmatrix}$ and check whether it
+results
+$I_{(p+q)\times{}(p+q)}=\begin{bmatrix}I_{p\times{}p}&0\\0&I_{q\times{}q}\\\end{bmatrix}$.
+
+
+Firstly, $MA-MBD^{-1}C=M(A-BD^{-1}C)=I_{p\times{}p}$.
+
+
+Secondly, $MB-MBD^{-1}D=MB-MB=0$.
+
+
+Thirdly,
+    $-D^{-1}CMA+D^{-1}C+D^{-1}CMBD^{-1}C=D^{-1}C(-MA+I+MBD^{-1}C)=D^{-1}CM(-A+M^{-1}+BD^{-1}C)=0$.
+
+
+Finally, $-D^{-1}CMB+D^{-1}D+D^{-1}CMBD^{-1}D=I_{q\times{}q}$.
+\end{proof}
+
+
+Suppose $\mathbf{x}$ is a $D$-dimensional vector with Gaussian
+distribution $\mathcal{N}(\mathbf{x}\vert{}\boldsymbol{\mu},\Sigma)$
+and we partition $\mathbf{x}$ into two disjoint subsets $\mathbf{x}_{a}$
+and $\mathbf{x}_{b}$. We can always put $\mathbf{x}_{a}$ on the first
+$M$ components of $\mathbf{x}$ by \emph{permutation} over $\boldsymbol{\mu}$
+and $\Sigma$ without loss of generality.
+\begin{itemize}
+\item $\mathbf{x}=\begin{bmatrix}\mathbf{x}_{a}\\\mathbf{x}_{b}\\\end{bmatrix}$
+\item
+$\boldsymbol{\mu}=\begin{bmatrix}\boldsymbol{\mu}_{a}\\\boldsymbol{\mu}_{b}\\\end{bmatrix}$
+\item
+$\Sigma=\begin{bmatrix}\Sigma_{aa}&\Sigma_{ab}\\\Sigma_{ba}&\Sigma_{bb}\\\end{bmatrix}$
+and the following properties result from $\Sigma^{\mathrm{T}}=\Sigma$
+    \begin{itemize}
+    \item $\Sigma_{aa}=\Sigma_{aa}^{\mathrm{T}}$ and $\Sigma_{bb}=\Sigma_{bb}^{\mathrm{T}}$
+    \item $\Sigma_{ab}^{\mathrm{T}}=\Sigma_{ba}$
+    \end{itemize}
+\item $\Lambda=\Sigma^{-1}=\begin{bmatrix}\Lambda_{aa}&\Lambda_{ab}\\\Lambda_{ba}&\Lambda_{bb}\\\end{bmatrix}$
+\end{itemize}
+
+
+Using this partitioning we firstly obtain:
+\begin{equation}
+\begin{split}
+&-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu})^{\mathrm{T}}\Sigma^{-1}(\mathbf{x}-\boldsymbol{\mu})\\
+=&-\frac{1}{2}\begin{bmatrix}(\mathbf{x}_{a}-\boldsymbol{\mu}_{a})^{\mathrm{T}}&(\mathbf{x}_{b}-\boldsymbol{\mu}_{b})^{\mathrm{T}}\\\end{bmatrix}\begin{bmatrix}\Lambda_{aa}&\Lambda_{ab}\\\Lambda_{ba}&\Lambda_{bb}\\\end{bmatrix}\begin{bmatrix}\mathbf{x}_{a}-\boldsymbol{\mu}_{a}\\\mathbf{x}_{b}-\boldsymbol{\mu}_{b}\end{bmatrix}\\
+=&-\frac{1}{2}\begin{bmatrix}(\mathbf{x}_{a}-\boldsymbol{\mu}_{a})^{\mathrm{T}}\Lambda_{aa}+(\mathbf{x}_{b}-\boldsymbol{\mu}_{b})^{\mathrm{T}}\Lambda_{ba}&(\mathbf{x}_{a}-\boldsymbol{\mu}_{a})^{\mathrm{T}}\Lambda_{ab}+(\mathbf{x}_{b}-\boldsymbol{\mu}_{b})^{\mathrm{T}}\Lambda_{bb}\\\end{bmatrix}\begin{bmatrix}\mathbf{x}_{a}-\boldsymbol{\mu}_{a}\\\mathbf{x}_{b}-\boldsymbol{\mu}_{b}\end{bmatrix}\\
+=&-\frac{1}{2}\{(\mathbf{x}_{a}-\boldsymbol{\mu}_{a})^{\mathrm{T}}\Lambda_{aa}(\mathbf{x}_{a}-\boldsymbol{\mu}_{a})+(\mathbf{x}_{b}-\boldsymbol{\mu}_{b})^{\mathrm{T}}\Lambda_{ba}(\mathbf{x}_{a}-\boldsymbol{\mu}_{a})+(\mathbf{x}_{a}-\boldsymbol{\mu}_{a})^{\mathrm{T}}\Lambda_{ab}(\mathbf{x}_{b}-\boldsymbol{\mu}_{b})+(\mathbf{x}_{b}-\boldsymbol{\mu}_{b})^{\mathrm{T}}\Lambda_{bb}(\mathbf{x}_{b}-\boldsymbol{\mu}_{b})\}
+\end{split}    
+\label{eqn:abquadratic}
+\end{equation}
+We find that as a function of $\mathbf{x}_{a}$, this is again a
+quadratic form.
+\begin{conclusion}
+If two sets of random variables are jointly Gaussian, then the
+conditional probability distribution of one set conditioned on the
+other is agian Gaussian.
+\end{conclusion}
+
+
+To determine the mean and covariance of
+$\Pr(\mathbf{x}_{a}\vert\mathbf{x}_{b})$, we should firstly note that
+the exponent in a general
+$\mathcal{N}(\mathbf{x}\vert\boldsymbol{\mu}\,\Sigma)$ can be written
+as:
+\begin{equation}
+-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu})^{\mathrm{T}}\Sigma^{-1}(\mathbf{x}-\boldsymbol{\mu})=-\frac{1}{2}\mathbf{x}^{\mathrm{T}}\Sigma^{-1}\mathbf{x}+\mathbf{x}^{\mathrm{T}}\Sigma^{-1}\boldsymbol{\mu}-\frac{1}{2}\boldsymbol{\mu}^{\mathrm{T}}\Sigma^{-1}\boldsymbol{\mu}
+\label{eqn:expandexponent}
+\end{equation}
+
+
+We pick out all terms that are second order in $\mathbf{x}_{a}$ from
+\eqref{eqn:abquadratic}:
+$-\frac{1}{2}\mathbf{x}_{a}^{\mathrm{T}}\Lambda_{aa}\mathbf{x}_{a}$.
+Thus the covariance of $\Pr(\mathbf{x}_{a}\vert\mathbf{x}_{b})$ is
+$\Lambda_{aa}^{-1}$.
+
+
+We pick out all terms that are linear in $\mathbf{x}_{a}$ from
+\eqref{eqn:abquadratic}:
+\begin{equation}
+\begin{split}
+&\frac{1}{2}\mathbf{x}_{a}^{\mathrm{T}}\Lambda_{aa}\boldsymbol{\mu}_{a}+\frac{1}{2}\boldsymbol{\mu}_{a}^{\mathrm{T}}\Lambda_{aa}\mathbf{x}_{a}-\frac{1}{2}\mathbf{x}_{a}^{\mathrm{T}}\Lambda_{ab}(\mathbf{x}_{b}-\boldsymbol{\mu}_{b})-\frac{1}{2}(\mathbf{x}_{b}-\boldsymbol{\mu}_{b})^{\mathrm{T}}\Lambda_{ba}\mathbf{x}_{a}\\
+=&\mathbf{x}_{a}^{\mathrm{T}}\Lambda_{aa}\boldsymbol{\mu}_{a}-\mathbf{x}_{a}^{\mathrm{T}}\Lambda_{ab}(\mathbf{x}_{b}-\boldsymbol{\mu}_{b})\quad{}(\because{}\mathbf{x}^{\mathrm{T}}A\mathbf{y}=\mathbf{y}^{\mathrm{T}}A^{\mathrm{T}}\mathbf{x}\text{
+        and }\Lambda_{ba}^{\mathrm{T}}=\Lambda_{ab})\\
+=&\mathbf{x}_{a}^{\mathrm{T}}\{\Lambda_{aa}\boldsymbol{\mu}_{a}-\Lambda_{ab}(\mathbf{x}_{b}-\boldsymbol{\mu}_{b})\}
+\end{split}
+\label{eqn:linearinxa}
+\end{equation}
+Thus the mean of $\Pr(\mathbf{x}_{a}\vert\mathbf{x}_b)$ is
+$\Lambda_{aa}^{-1}\{\Lambda_{aa}\boldsymbol{\mu}_{a}-\Lambda_{ab}(\mathbf{x}_{b}-\boldsymbol{\mu}_{b})\}=\boldsymbol{\mu}_{a}-\Lambda_{aa}^{-1}\Lambda_{ab}(\mathbf{x}_{b}-\boldsymbol{\mu}_{b})$.
+
+
+If we can ensure $\Sigma_{bb}$ to be invertible (how?), 
+\putansline{6}{5}
+we can make use of \eqref{eqn:schurcomplement} to express
+$\Lambda_{aa}$ as
+$(\Sigma_{aa}-\Sigma_{ab}\Sigma_{bb}^{-1}\Sigma_{ba})^{-1}$
+and hence:
+\begin{equation}
+\Sigma_{a\vert{}b}=\Lambda_{aa}^{-1}=(\Sigma_{aa}-\Sigma_{ab}\Sigma_{bb}^{-1}\Sigma_{ba})
+\label{eqn:covagivenb}    
+\end{equation}
+we can also make use of \eqref{eqn:schurcomplement} to express
+$\Lambda_{ab}$ as
+$-\Lambda_{aa}\Sigma_{ab}\Sigma_{bb}^{-1}$
+and hence:
+\begin{equation}
+\begin{split}
+\mu_{a\vert{}b}&=\boldsymbol{\mu}_{a}-\Lambda_{aa}^{-1}\Lambda_{ab}(\mathbf{x}_{b}-\boldsymbol{\mu}_{b})\\
+&=\boldsymbol{\mu}_{a}+\Lambda_{aa}^{-1}\Lambda_{aa}\Sigma_{ab}\Sigma_{bb}^{-1}(\mathbf{x}_{b}-\boldsymbol{\mu}_{b})\\
+&=\boldsymbol{\mu}_{a}+\Sigma_{ab}\Sigma_{bb}^{-1}(\mathbf{x}_{b}-\boldsymbol{\mu}_{b})
+\end{split}
+\label{eqn:meanagivenb}
+\end{equation}
