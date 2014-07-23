@@ -1,0 +1,20 @@
+\subsection{Curve Fitting}
+Given $\{(x_{i},t_{i})|i=1,\ldots,N\}$, choose $\mathbf{w}$ to enable $f(x,\mathbf{w})=w_{m}x^{m}+\cdots+w_{1}x+w_0$ well fitting original curve.
+
+
+
+A straight way to determine $\mathbf{w}$ is minimize squared residual with regularization requiring $\mathbf{w}$ not so huge: $\sum_{i=1}^{N}(f(x_i,\mathbf{w})-t_i)^{2}+\lambda\Vert\mathbf{w}\Vert_2^2$. 
+This strategy has equivalent probabilistic interpretation where the target value is random variable drawn from $\mathcal{N}(f(x,\mathbf{w}),\theta)$. 
+The term of regularization as well as its weight $\lambda$ are explained by a prior of $\mathbf{w}$---$\mathcal{N}(\mathbf{0},\lambda)$.
+When we use the probabilistic model, $\mathbf{w}$ is determined by maximizing the log of posterior:
+\begin{equation}
+\begin{split}
+\log\Pr(\mathbf{w}|\mathcal{D})&=\sum_{i}^{N}\log\Pr(\mathbf{w}|(x_i,t_i))\\
+&\propto\sum_{i}^{N}\log\{\Pr(t_i|x_i,\mathbf{w})\Pr(\mathbf{w})\}\\
+\end{split}
+\label{eqn:curvefittingmap}
+\end{equation}
+Note that $\log\Pr(\mathbf{w})$ gives the term $\frac{1}{2\lambda}\mathbf{w}^{\mathrm{T}}\mathbf{w}$.
+When $\lambda$ is small, it means the density of prior distribution centers on $\mathbf{0}$.
+This is revealed in large regularization term---$\frac{1}{2\lambda}\mathbf{w}^{\mathrm{T}}\mathbf{w}$.
+The variance of prior corresponds to the weight of regularization term.
